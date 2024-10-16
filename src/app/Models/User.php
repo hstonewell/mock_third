@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable
 {
@@ -44,5 +45,36 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    //各モデルとのリレーション
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'user_id');
+    }
+
+    public function seller()
+    {
+        return $this->hasMany(Transaction::class, 'seller_id');
+    }
+
+    public function buyer()
+    {
+        return $this->hasMany(Transaction::class, 'buyer_id');
+    }
+
+    public function userProfiles()
+    {
+        return $this->hasOne(UserProfile::class);
     }
 }
