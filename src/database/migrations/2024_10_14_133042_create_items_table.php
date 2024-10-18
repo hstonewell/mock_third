@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
-            $table->foreignId('brand_id')->constrained();
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('brand_id')->constrained()->nullable();
+            $table->foreignId('category_id')->constrained()->nullable();
             $table->unsignedInteger('price');
-            $table->text('description');
-            $table->string('condition');
+            $table->text('description')->nullable();
+            $table->string('condition')->nullable();
             $table->foreignId('item_image_id')->constrained();
             $table->timestamps();
         });
