@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('seller_id')->constrained();
-            $table->foreignId('buyer_id')->constrained();
+            $table->foreignId('seller_id')->constrained('users');
+            $table->foreignId('buyer_id')->constrained('users');
             $table->foreignId('item_id')->constrained();
             $table->integer('price');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
