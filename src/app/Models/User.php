@@ -19,7 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -63,12 +62,12 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class, 'user_id');
     }
 
-    public function seller()
+    public function sales()
     {
         return $this->hasMany(Transaction::class, 'seller_id');
     }
 
-    public function buyer()
+    public function purchases()
     {
         return $this->hasMany(Transaction::class, 'buyer_id');
     }
