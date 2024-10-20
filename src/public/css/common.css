@@ -1,0 +1,21 @@
+body {
+    margin:0;
+}
+
+.header {
+    height: 60px;
+    padding: 22px, 25px;
+    background-color: #000;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main {
+    background-color: #fff;
+    text-align: center;
+    width: 100vw;
+}
