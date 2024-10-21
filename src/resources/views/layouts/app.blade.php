@@ -14,7 +14,7 @@
     <header class="header">
         <div class="header__inner">
             <div class="header__inner--logo">
-                ロゴ
+                <img src="{{ asset('img/logo.svg') }}" alt="">
             </div>
         </div>
         @yield('header')
