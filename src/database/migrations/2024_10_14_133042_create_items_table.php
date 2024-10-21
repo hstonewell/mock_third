@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('brand_id')->constrained()->nullable();
             $table->foreignId('category_id')->constrained()->nullable();
+            $table->foreignId('condition_id')->constrained()->nullable();
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
-            $table->string('condition')->nullable();
             $table->foreignId('item_image_id')->constrained();
             $table->timestamps();
         });
