@@ -62,17 +62,12 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class, 'user_id');
     }
 
-    public function sales()
+    public function buyers()
     {
-        return $this->hasMany(Transaction::class, 'seller_id');
+        return $this->hasMany(SoldItem::class, 'buyer_id', 'user_id');
     }
 
-    public function purchases()
-    {
-        return $this->hasMany(Transaction::class, 'buyer_id');
-    }
-
-    public function userProfiles()
+    public function userProfile()
     {
         return $this->hasOne(UserProfile::class);
     }
