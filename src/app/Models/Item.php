@@ -14,10 +14,9 @@ class Item extends Model
         'name',
         'brand_id',
         'category_id',
+        'condition_id',
         'price',
         'description',
-        'item_image_id',
-        'condition'
     ];
 
     //各モデルとのリレーション
@@ -26,14 +25,19 @@ class Item extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function brands()
+    public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class, 'condition_id');
     }
 
     public function comments()
@@ -46,14 +50,9 @@ class Item extends Model
         return $this->hasMany(Favorite::class, 'item_id');
     }
 
-    public function item_images()
+    public function soldItems()
     {
-        return $this->hasMany(ItemImage::class, 'item_id');
-    }
-
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class, 'item_id');
+        return $this->hasMany(SoldItem::class, 'item_id');
     }
 
     //検索
