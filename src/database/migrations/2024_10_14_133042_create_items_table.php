@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('name');
             $table->foreignId('brand_id')->constrained()->nullable();
             $table->foreignId('category_id')->constrained()->nullable();
             $table->foreignId('condition_id')->constrained()->nullable();
+            $table->string('item_name');
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
-            $table->foreignId('item_image_id')->constrained();
+            $table->string('image');
             $table->timestamps();
         });
     }
