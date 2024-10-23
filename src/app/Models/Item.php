@@ -11,12 +11,13 @@ class Item extends Model
 
     protected $fillable = [
         'user_id',
-        'name',
         'brand_id',
         'category_id',
         'condition_id',
+        'item_name',
         'price',
         'description',
+        'image'
     ];
 
     //各モデルとのリレーション
@@ -50,9 +51,9 @@ class Item extends Model
         return $this->hasMany(Favorite::class, 'item_id');
     }
 
-    public function soldItems()
+    public function purchasedItems()
     {
-        return $this->hasMany(SoldItem::class, 'item_id');
+        return $this->hasMany(PurchasedItem::class, 'item_id');
     }
 
     //検索
@@ -60,12 +61,12 @@ class Item extends Model
     {
         return $query->where('condition', $condition);
     }
-    public function scopeBrand($query, $condition)
+    public function scopeBrand($query, $brand)
     {
-        return $query->where('brand', $condition);
+        return $query->where('brand', $brand);
     }
-    public function scopeCategory($query, $condition)
+    public function scopeCategory($query, $category)
     {
-        return $query->where('condition', $condition);
+        return $query->where('Category', $category);
     }
 }
