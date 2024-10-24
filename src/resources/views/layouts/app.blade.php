@@ -13,11 +13,32 @@
 <body>
     <header class="header">
         <div class="header__inner">
+            @if(Request::is('register') || Request::is('login'))
             <div class="header__inner--logo">
-                <img src="{{ asset('img/logo.svg') }}" alt="">
+                <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
+            @elseif(Request::is('/') || Request::is('detail') || Request::is('purchase')|| Request::is('mypage') || Request::is('mypage.profile'))
+            <div class="header__inner--logo">
+                <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
+            </div>
+            <div class="header__inner--search">
+                <form class="search-form" action="" method="GET">
+                    @csrf
+                    <input class="search-input" type="search" name="keyword" placeholder="何をお探しですか？" value="{{ old('keyword', request('keyword')) }}">
+                </form>
+            </div>
+            <div class="header__inner--menu">
+                @if (Auth::check())
+                <a href="/logout" class="sell-link">ログアウト</a>
+                <a href="/mypage" class="sell-link">マイページ</a>
+                @else
+                <a href="/login" class="sell-link">ログイン</a>
+                <a href="/register" class="sell-link">会員登録</a>
+                @endif
+                <a href="" class="sell-button">出品</a>
+            </div>
+            @endif
         </div>
-        @yield('header')
     </header>
     <main class="main">
         @yield('main')
