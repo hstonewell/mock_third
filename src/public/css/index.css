@@ -1,0 +1,79 @@
+.main__inner__tab-wrapper {
+    width: 100%;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.main__inner--tab-labels {
+    display: flex;
+    align-items: flex-end;
+    height: 65px;
+    padding-left: 130px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #5F5F5F;
+    font-size: 0;
+}
+
+.main__inner--tab-labels label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    font-size: 18px;
+    color: #5F5F5F;
+    font-weight: bold;
+    cursor: pointer;
+    transition: ease 0.2s opacity;
+}
+
+.main__inner--tab-labels label:hover {
+    opacity: 0.5;
+}
+
+.main__inner__tab-content {
+    background: #fff;
+}
+
+.tab-panel {
+    display: none;
+    width: 100%;
+    padding: 80px 0;
+}
+
+#tab-recommend:checked~.main__inner--tab-labels .label-recommend {
+    color: #FF0000;
+}
+
+#tab-recommend:checked~.main__inner__tab-content #tab-panel-recommend {
+    display: block;
+}
+
+#tab-mylist:checked~.main__inner--tab-labels .label-mylist {
+    color: #FF0000;
+}
+
+#tab-mylist:checked~.main__inner__tab-content #tab-panel-mylist {
+    display: block;
+}
+
+.tab-panel {
+    text-align: center;
+}
+
+.tab-panel__inner {
+    display: flex;
+    justify-content: space-between;
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.item-thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
