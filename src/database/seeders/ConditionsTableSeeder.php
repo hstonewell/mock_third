@@ -16,31 +16,31 @@ class ConditionsTableSeeder extends Seeder
         $param = [
             'condition' => '新品・未使用',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
 
         $param = [
             'condition' => '未使用に近い',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
 
         $param = [
             'condition' => '目立った傷や汚れなし',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
 
         $param = [
             'condition' => 'やや傷や汚れあり',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
 
         $param = [
             'condition' => '傷や汚れあり',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
 
         $param = [
             'condition' => '状態が悪い',
         ];
-        DB::table('condition')->insert($param);
+        DB::table('conditions')->insert($param);
     }
 }
