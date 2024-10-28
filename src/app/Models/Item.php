@@ -17,8 +17,15 @@ class Item extends Model
         'item_name',
         'price',
         'description',
-        'image'
+        'image',
+        'sold_out',
     ];
+
+    //売り切れかどうかの判定
+    public function isSoldOut()
+    {
+        return $this->sold_out;
+    }
 
     //各モデルとのリレーション
     public function user()
@@ -56,16 +63,26 @@ class Item extends Model
         return $this->hasMany(PurchasedItem::class, 'item_id');
     }
 
+    //トップページの「おすすめ」
+    public function scopeRecommendItems ($query)
+    {
+        return $query->where('sold_out', false)->orderBy('created_at', 'desc');
+    }
+
     //検索
-    public function scopeCondition($query, $condition)
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        return $query->where('item_name', 'like', '%' . $keyword . '%');
+    }
+    public function scopeConditionSearch($query, $condition)
     {
         return $query->where('condition', $condition);
     }
-    public function scopeBrand($query, $brand)
+    public function scopeBrandSearch($query, $brand)
     {
         return $query->where('brand', $brand);
     }
-    public function scopeCategory($query, $category)
+    public function scopeCategorySearch($query, $category)
     {
         return $query->where('Category', $category);
     }
