@@ -14,6 +14,18 @@ class Favorite extends Model
         'item_id',
     ];
 
+    public static function favorite($user_id, $item_id)
+    {
+        $param = [
+            'user_id' => $user_id,
+            'item_id' => $item_id,
+        ];
+
+        $favorite = Favorite::create($param);
+
+        return $favorite;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
