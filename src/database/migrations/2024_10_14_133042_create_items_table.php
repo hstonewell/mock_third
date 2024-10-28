@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
             $table->string('image');
+            $table->boolean('sold_out')->default(false);
             $table->timestamps();
         });
     }
