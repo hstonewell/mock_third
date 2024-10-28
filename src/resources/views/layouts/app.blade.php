@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COACHTECHフリマ</title>
     <script src="https://kit.fontawesome.com/88521f16f4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css')}}">
     @yield('css')
 </head>
@@ -17,7 +18,7 @@
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
-            @elseif(Request::is('/') || Request::is('detail') || Request::is('purchase')|| Request::is('mypage') || Request::is('mypage.profile'))
+            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile'))
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
@@ -37,6 +38,7 @@
                 @endif
                 <a href="" class="sell-button">出品</a>
             </div>
+            @elseif (Request::is('sell') || Request::is('purchase/address/*'))
             @endif
         </div>
     </header>
