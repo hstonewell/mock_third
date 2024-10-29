@@ -23,7 +23,7 @@
 }
 
 /* ヘッダ */
-.item-header h2{
+.item-header h2 {
     font-size: 24px;
 }
 
@@ -50,9 +50,22 @@
     margin-right: 20px;
 }
 
+.item-header--buttons a {
+    color: #000;
+    text-decoration: none;
+}
 
+/* 購入ボタン */
 .purchase-item {
     margin: 20px 0 35px 0;
+    vertical-align: middle;
+}
+
+.purchase-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
 /* 商品説明 */
@@ -121,10 +134,6 @@
 }
 
 /* コメント */
-.item-comments__list {
-    
-}
-
 .item-comment__unit {
     display: flex;
     flex-direction: column;

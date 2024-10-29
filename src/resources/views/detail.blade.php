@@ -32,12 +32,12 @@
                 </form>
                 @endif
                 @endif
-                <i class="fa-regular fa-comment fa-lg"></i>
+                <a href="#comments"><i class="fa-regular fa-comment fa-lg"></i></a>
             </div>
         </div>
-        <form class="purchase-item">
-            <button class="submit-button">購入する</button>
-        </form>
+        <div class="purchase-item">
+            <a href="{{ route('show.purchase', ['item_id' => $item->id]) }}" class="submit-button">購入する</a>
+        </div>
         <div class="item-description">
             <h3>商品説明</h3>
             <p>{{ $item->description }}</p>
@@ -60,14 +60,14 @@
                 </tr>
             </table>
         </div>
-        <div class="item-comments">
+        <div class="item-comments" id="comments">
             <div class="item-comment__unit">
                 <div class="item-comment-user">
                     <img src="" class="thumbnail">
                     <span>名前</span>
                 </div>
                 <div class="item-comment-content">
-                    <p>ないようないようないよう</p>
+                    <p>コメント内容内容内容</p>
                 </div>
             </div>
             <div class="item-comments__form">
