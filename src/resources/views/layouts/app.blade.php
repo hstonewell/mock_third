@@ -30,7 +30,10 @@
             </div>
             <div class="header__inner--menu">
                 @if (Auth::check())
-                <a href="/logout" class="sell-link">ログアウト</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="sell-link">ログアウト</button>
+                </form>
                 <a href="/mypage" class="sell-link">マイページ</a>
                 @else
                 <a href="/login" class="sell-link">ログイン</a>
