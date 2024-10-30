@@ -24,4 +24,10 @@ class Comment extends Model
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
+
+    //コメント表示のフィルター
+    public function scopeForComment($query, $itemId)
+    {
+        return $query->where('item_id', $itemId)->with('user.userProfile')->orderBy('created_at', 'asc');
+    }
 }

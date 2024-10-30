@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $recommendItems = Item::recommendItems()->take(10)->get();
+        $recommendItems = Item::recommendItems()->get();
 
         return view('index', compact('recommendItems'));
     }
@@ -19,7 +19,7 @@ class ItemController extends Controller
     {
         $item = Item::with('user', 'brand', 'category', 'condition')->find($id);
 
-        $comments = Comment::forItem($id)->get();
+        $comments = Comment::forComment($id)->get();
 
         return view('detail', compact('item', 'comments'));
     }
