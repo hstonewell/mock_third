@@ -9,6 +9,7 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
+use App\Models\UserProfile;
 
 //商品表示
 Route::get('/', [ItemController::class, 'index'])->name('index');
@@ -21,28 +22,28 @@ Route::post('/register', [RegisterController::class, 'store']);
 //ログイン機能はFortifyServiceProviderによる
 
 //商品販売
-Route::get('/sell', [SellController::class, 'show'])->name('show.sell');
-Route::post('/sell', [SellController::class, 'create'])->name('sell');
+Route::get('/sell', [SellController::class, 'show'])->name('sell.show');
+Route::post('/sell', [SellController::class, 'create'])->name('sell.create');
 
 //商品購入
-Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('show.purchase');
-Route::post('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase');
+Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+Route::post('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
 
 //住所変更
-Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'show'])->name('show.address');
-Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'create'])->name('change.address');
+Route::get('/purchase/address/{item_id}', [UserProfileController::class, 'showAddress'])->name('address.show');
+Route::post('/purchase/address/{item_id}', [UserProfileController::class, 'createAddress'])->name('address.create');
 
 //マイページ
-Route::get('/mypage', [MyPageController::class, 'show'])->name('show.mypage');
+Route::get('/mypage', [MyPageController::class, 'show'])->name('mypage.show');
 
 //プロフィール
-Route::get('/mypage/profile', [UserProfileController::class, 'show'])->name('show.profile');
-Route::post('/mypage/profile', [UserProfileController::class, 'create'])->name('edit.profile');
+Route::get('/mypage/profile', [UserProfileController::class, 'showProfile'])->name('profile.show');
+Route::post('/mypage/profile', [UserProfileController::class, 'createProfile'])->name('profile.create');
 
 //お気に入り
-Route::get('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
+Route::post('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
 Route::post('/unfavorite/{item_id}', [FavoriteController::class, 'delete'])->name('unfavorite');
 
 //コメント
-Route::get('/comment', [CommentController::class, 'create'])->name('comment');
-Route::post('/comment/{comment_id}', [CommentController::class, 'delete'])->name('delete.comment');
+Route::post('/comment', [CommentController::class, 'create'])->name('comment.create');
+Route::post('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
