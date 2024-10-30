@@ -28,7 +28,7 @@ class ItemFactory extends Factory
             'condition_id' => Condition::inRandomOrder()->first()->id,
             'item_name' => 'サンプル商品名',
             'price' => fake()->numberBetween(1000, 100000),
-            'description' => fake()->sentence(),
+            'description' => fake()->realText(),
             'image' => 'img/sample-image.png',
             'sold_out' => fake()->boolean(),
         ];
