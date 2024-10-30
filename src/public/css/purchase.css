@@ -14,50 +14,58 @@
     width: 50%;
 }
 
-.item-summary__column {
+.item-summary {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.item-summary__column--img {
-    margin: 0;
-}
-
-.item-summary__column--img img{
+.item-summary--img img{
     display: block;
+    margin: 0;
     width: 120px;
-    height: 140px;
+    height: auto;
+    object-fit: cover;
     background-color: #d9d9d9;
 }
 
-.item-summary__column--caption {
+.item-summary--caption {
     width: 60%;
     text-align: left;
 }
 
-.item-summary__column--caption h2{
+.item-summary--caption h2{
     font-size: 20px;
 }
 
-.item-summary__column--caption h5 {
+.item-summary--caption h5 {
     margin: 10px 0;
     font-size: 18px;
     font-weight: lighter;
 }
 
-.item-summary__column h3 {
+
+/* 支払い方法・配送先選択 */
+.item-summary--option-unit {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.item-summary--option-unit h3 {
     font-size: 18px;
 }
 
-.item-summary__column a {
+.item-summary--option-unit a {
     font-size: 14px;
     color: #0073CC;
     text-decoration: none;
     transition: ease 0.2s opacity;
 }
 
-.item-summary__column a:hover {
+.item-summary--option-unit a:hover {
     opacity: 0.8;
 }
 

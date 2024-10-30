@@ -7,22 +7,22 @@
 @section('main')
 <div class="main__inner">
     <div class="main__inner--left">
-        <div class="item-summary__column">
-            <div class="item-summary__column--img">
-                <img src="" alt="">
+        <div class="item-summary">
+            <div class="item-summary--img">
+                <img src="{{ asset($item->image) }}" alt="{{ $item->item_name }}">
             </div>
-            <div class="item-summary__column--caption">
-                <h2>商品名</h2>
-                <h5>¥100,000</h5>
+            <div class="item-summary--caption">
+                <h2>{{ $item->item_name }}</h2>
+                <h5>¥{{ number_format($item->price) }}</h5>
             </div>
         </div>
-        <div class="item-summary__column">
+        <div class="item-summary--option-unit">
             <h3>支払い方法</h3>
-            <a href="" class="item-summary__column--modify">変更する</a>
+            <a href="">変更する</a>
         </div>
-        <div class="item-summary__column">
+        <div class="item-summary--option-unit">
             <h3>配送先</h3>
-            <a href="" class="item-summary__column--modify">変更する</a>
+            <a href="">変更する</a>
         </div>
     </div>
     <div class="main__inner-right">
@@ -31,7 +31,7 @@
             <div class="item-purchase__box">
                 <div class="item-purchase__payment-unit">
                     <label>商品代金</label>
-                    <input value="金額" readonly>
+                    <input value="¥{{ number_format($item->price) }}" readonly>
                 </div>
                 <div class="item-purchase__payment-unit">
                     <label>支払い金額</label>
