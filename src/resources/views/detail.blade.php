@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="purchase-item">
-            <a href="{{ route('show.purchase', ['item_id' => $item->id]) }}" class="submit-button">購入する</a>
+            <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="submit-button">購入する</a>
         </div>
         <div class="item-description">
             <h3>商品説明</h3>
@@ -60,24 +60,31 @@
                 </tr>
             </table>
         </div>
-        <div class="item-comments" id="comments">
+        <div class="item-comments">
+            @foreach ( $comments as $comment )
             <div class="item-comment__unit">
-                <div class="item-comment-user">
-                    <img src="" class="thumbnail">
-                    <span>名前</span>
+                <div class="item-comment-user" @if(Auth::id()===$comment->user_id) id="auth" @endif>
+                    @if($comment->user->userProfile && $comment->user->userProfile->image)
+                    <img src="{{ asset($comment->user->userProfile->image) }}" class="thumbnail">
+                    @else
+                    <img src="{{ asset('img/default-user-icon.svg') }}" class="thumbnail">
+                    @endif
+                    <span>{{ $comment->user->userProfile->name ?? 'ユーザー名未設定' }}</span>
                 </div>
-                <div class="item-comment-content">
-                    <p>コメント内容内容内容</p>
+                <div class="item-comment-content" @if(Auth::id()===$comment->user_id) id="auth" @endif>
+                    <p>{{ $comment->comment }}</p>
                 </div>
             </div>
-            <div class="item-comments__form">
-                <form class="item-comments">
-                    @csrf
-                    <label>商品へのコメント</label>
-                    <textarea class="item-comments__input" type="textarea" rows="5"></textarea>
-                    <button class="submit-button">コメントを送信する</button>
-                </form>
-            </div>
+            @endforeach
+        </div>
+        <div class="item-comments__form">
+            <form method="post" action="{{ route('comment.create') }}" class="item-comments">
+                @csrf
+                <label>商品へのコメント</label>
+                <input type="hidden" value="{{ $item->id }}" name="item_id">
+                <textarea class="item-comments__input" type="textarea" rows="5" name="comment"></textarea>
+                <button type="submit" class="submit-button">コメントを送信する</button>
+            </form>
         </div>
     </div>
 </div>
