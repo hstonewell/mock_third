@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             BrandsTableSeeder::class,
             UsersTableSeeder::class,
             ItemsTableSeeder::class,
+            CommentTableSeeder::class,
         ]);
     }
 }
