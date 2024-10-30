@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->string('address')->nullable();
             $table->string('building')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image')->default('img/default-user-icon.svg')->nullable();
             $table->timestamps();
         });
     }
