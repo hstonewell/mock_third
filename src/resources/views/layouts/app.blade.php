@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css')}}">
     @yield('css')
+    @livewireStyles
 </head>
 
 <body>
