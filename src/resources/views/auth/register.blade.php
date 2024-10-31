@@ -25,7 +25,7 @@
             @endif
             <div class="register-form__item">
                 <label class="register-form--label">パスワード</label>
-                <input class="register-form--input" type="password" name="password" id="password"  value="{{ old('password') }}">
+                <input class="register-form--input" type="password" name="password" id="password" value="{{ old('password') }}">
             </div>
             @if ($errors->has('password'))
             @foreach($errors->get('password') as $message)
@@ -35,7 +35,7 @@
             @endforeach
             @endif
             <div class="register-form__item">
-                <input class="register-form--button" type="submit" value="登録する">
+                <input class="submit-button" type="submit" value="登録する">
                 <a href="/login" class="register-form--link">ログインはこちら</a>
             </div>
         </form>

@@ -35,7 +35,7 @@
             @endforeach
             @endif
             <div class="register-form__item">
-                <input class="register-form--button" type="submit" value="ログイン">
+                <input class="submit-button" type="submit" value="ログイン">
                 <a href="/register" class="register-form--link">会員登録はこちら</a>
             </div>
         </form>
