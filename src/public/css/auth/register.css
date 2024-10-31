@@ -11,6 +11,7 @@
 }
 
 .register-form__header--title {
+    font-size: 3.6em;
     font-weight: bold;
 }
 
@@ -28,16 +29,17 @@
 }
 
 .register-form--label {
-    font-weight: bold;
-    text-align: left;
     padding-bottom: 5px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 2.4em;
 }
 
 .register-form--input {
     border: 1px solid #5F5F5F;
     border-radius: 4px;
     outline: none;
-    height: 2.5em;
+    height: 5.8rem;
     padding: 0px 8px;
 }
 
@@ -45,21 +47,8 @@
     border-color: #0073CC;
 }
 
-.register-form--button {
-    height: 2.5em;
-    background-color: #FF5555;
-    color: #fff;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 8px 15px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
 .register-form--link {
-    font-size: 14px;
+    font-size: 2em;
     color: #0073CC;
     padding-top: 20px;
 }

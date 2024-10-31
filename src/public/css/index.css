@@ -14,14 +14,13 @@ input[type="radio"] {
     padding-left: 130px;
     padding-bottom: 15px;
     border-bottom: 1px solid #5F5F5F;
-    font-size: 0;
 }
 
 .main__inner--tab-labels label {
     display: inline-block;
     width: 150px;
     text-align: left;
-    font-size: 18px;
+    font-size: 2.4em;
     color: #5F5F5F;
     font-weight: bold;
     cursor: pointer;
