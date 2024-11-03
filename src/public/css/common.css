@@ -114,3 +114,11 @@ body {
 .submit-button:hover {
     opacity: 0.8;
 }
+
+/* エラーメッセージ */
+p.form--error-message {
+    font-size: 2em;
+    color: #FF5555;
+    text-align: left;
+    margin: 5px 0px 0px 3px;
+}

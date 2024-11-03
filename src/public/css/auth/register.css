@@ -56,10 +56,3 @@
 .register-form--link:hover {
     opacity: 0.8;
 }
-
-.register-form--error-message {
-    color: #FF5555;
-    text-align: left;
-    margin-top: 3px;
-    margin-bottom: 0px;
-}
