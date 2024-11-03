@@ -21,6 +21,13 @@
     width: 30%;
 }
 
+.main__profile--edit a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
 .main__tab-wrapper {
     width: 100%;
 }
