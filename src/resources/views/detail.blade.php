@@ -14,25 +14,33 @@
             <h2>{{ $item->item_name }}</h2>
             <span>{{ $item->brand->brand_name }}</span>
             <h5>¥{{ number_format($item->price) }}</h5>
-            <div class="item-header--buttons">
-                @if(Auth::check())
-                @if(count($item->favorites) == 0)
-                <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
-                    @csrf
-                    <button type="submit">
-                        <i class="fa-regular fa-star fa-xl"></i>
-                    </button>
-                </form>
-                @else
-                <form method="POST" action="{{ route('unfavorite', ['item_id' => $item->id]) }}">
-                    @csrf
-                    <button type="submit">
-                        <i class="fa-solid fa-star fa-lg" style="color:#FFE500"></i>
-                    </button>
-                </form>
-                @endif
-                @endif
-                <a href="#comments"><i class="fa-regular fa-comment fa-lg"></i></a>
+            <div class="item-header--reactions">
+                <div class="item-header--reactions-icon">
+                    @if(Auth::check())
+                    @if(count($item->favorites) == 0)
+                    <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
+                        @csrf
+                        <button type="submit">
+                            <i class="fa-regular fa-star fa-xl"></i>
+                        </button>
+                    </form>
+                    @else
+                    <form method="POST" action="{{ route('unfavorite', ['item_id' => $item->id]) }}">
+                        @csrf
+                        <button type="submit">
+                            <i class="fa-solid fa-star fa-xl" style="color:#FFE500"></i>
+                        </button>
+                    </form>
+                    @endif
+                    @else
+                    <i class="fa-regular fa-star fa-xl"></i>
+                    @endif
+                    <p>{{ $item->favorites->count() }}</p>
+                </div>
+                <div class="item-header--reactions-icon">
+                    <a href="#comments"><i class="fa-regular fa-comment fa-2xl"></i></a>
+                    <p>{{ $item->comments->count() }}</p>
+                </div>
             </div>
         </div>
         <div class="purchase-item">
@@ -49,7 +57,6 @@
                     <th>カテゴリー</th>
                     <td class="item-category">
                         <p>{{ $item->category->category_name }}</p>
-                        <p>カテゴリ2</p>
                     </td>
                 </tr>
                 <tr>
@@ -60,7 +67,7 @@
                 </tr>
             </table>
         </div>
-        <div class="item-comments">
+        <div class="item-comments" id="comments">
             @foreach ( $comments as $comment )
             <div class="item-comment__unit">
                 <div class="item-comment-user" @if(Auth::id()===$comment->user_id) id="auth" @endif>
