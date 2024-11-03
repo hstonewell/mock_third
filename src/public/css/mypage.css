@@ -1,0 +1,146 @@
+.main__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.main__profile--img {
+    width: 20%;
+}
+
+.main__profile--name {
+    width: 40%;
+    text-align: left;
+    font-size: 3.6em;
+}
+
+.main__profile--edit {
+    width: 30%;
+}
+
+.main__tab-wrapper {
+    width: 100%;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+/* タブ */
+.main__tab-labels {
+    display: flex;
+    align-items: flex-end;
+    height: 65px;
+    padding-left: 130px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #5F5F5F;
+}
+
+.main__tab-label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    font-size: 2.4em;
+    color: #5F5F5F;
+    font-weight: bold;
+    cursor: pointer;
+    transition: ease 0.2s opacity;
+}
+
+.main__tab-label:hover {
+    opacity: 0.5;
+}
+
+.main__tab-content {
+    background: #fff;
+}
+
+.tab-content__panel {
+    display: none;
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+}
+
+#tab-selling:checked~.main__tab-labels .tab-label--selling {
+    color: #FF0000;
+}
+
+#tab-selling:checked~.main__tab-content #tab-panel--selling {
+    display: block;
+}
+
+#tab-purchased:checked~.main__tab-labels .tab-label--purchased {
+    color: #FF0000;
+}
+
+#tab-purchased:checked~.main__tab-content #tab-panel--purchased {
+    display: block;
+}
+
+/* 商品一覧 */
+.tab-panel__items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.tab-panel__item-thumbnail {
+    width: 18%;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.tab-panel__item-thumbnail a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.tab-panel__item-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.tab-panel__spacer {
+    content: "";
+    display: block;
+    width: 18%;
+    margin-bottom: 30px;
+    aspect-ratio: 1 / 1;
+    visibility: hidden;
+}
+
+.tab-panel__not-auth {
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.tab-panel__not-auth-text {
+    font-size: 2.4em;
+}
+
+.tab-panel__not-auth-link {
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+    color: #0073CC;
+}
+
+.tab-panel__not-auth-link:hover {
+    opacity: 0.8;
+}
