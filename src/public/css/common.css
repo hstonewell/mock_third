@@ -122,3 +122,30 @@ p.form--error-message {
     text-align: left;
     margin: 5px 0px 0px 3px;
 }
+
+/* プロフィール画像のサムネイル */
+.profile-thumbnail {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    background-position: center;
+}
+
+.edit-button {
+    display: block;
+    width: 100%;
+    height: 6rem;
+    border: 1px solid #FF5555;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #fff;
+    color: #FF5555;
+    font-size: 2.6em;
+    font-weight: bold;
+    transition: ease 0.2s opacity;
+}
+.edit-button:hover {
+    opacity: 0.8;
+}
