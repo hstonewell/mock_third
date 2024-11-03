@@ -25,7 +25,7 @@
 .item-summary--img img{
     display: block;
     margin: 0;
-    width: 120px;
+    width: 12rem;
     height: auto;
     object-fit: cover;
     background-color: #d9d9d9;
@@ -37,36 +37,54 @@
 }
 
 .item-summary--caption h2{
-    font-size: 20px;
+    font-size: 3em;
 }
 
 .item-summary--caption h5 {
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 2.4em;
     font-weight: lighter;
 }
 
 
 /* 支払い方法・配送先選択 */
-.item-summary--option-unit {
+.item-summary--option {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
     margin-bottom: 50px;
 }
 
-.item-summary--option-unit h3 {
-    font-size: 18px;
+.item-summary--option--header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-.item-summary--option-unit a {
-    font-size: 14px;
+.item-summary--option--header h3 {
+    font-size: 2.4em;
+}
+
+.item-summary--option--header a {
+    font-size: 2em;
     color: #0073CC;
     text-decoration: none;
     transition: ease 0.2s opacity;
 }
 
-.item-summary--option-unit a:hover {
+.item-summary--option--header a:hover {
     opacity: 0.8;
+}
+
+.item-summary--option--detail {
+    padding: 20px 15px;
+    border: 1px solid #5f5f5f;
+    text-align: left;
+}
+
+.item-summary--option--detail p{
+    font-size: 2em;
+    line-height: 1.5em;
 }
 
 /* 右側 */
@@ -96,7 +114,11 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 2em;
+    height: 8rem;
+}
+
+.item-purchase__payment-unit label {
+    font-size: 2em;
 }
 
 .item-purchase__payment-unit input[readonly]{
@@ -111,6 +133,6 @@
 	-moz-appearance: none;
 	appearance: none;
     cursor: default;
-    font-size: 14px;
+    font-size: 2em;
     color: #000;
 }
