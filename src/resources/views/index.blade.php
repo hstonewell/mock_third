@@ -21,15 +21,27 @@
                         <a href="{{ route('item.detail', ['item_id'=>$recommendItem->id]) }}"><img src="{{ asset($recommendItem->image) }}" alt="{{ $recommendItem->item_name }}"></a>
                     </div>
                     @endforeach
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
                 </div>
             </div>
             <div id="tab-panel-mylist" class="tab-panel">
                 <div class="tab-panel__inner">
-                    <div class="item-thumbnail"><img src="item-thumbnail"></div>
-                    <div class="item-thumbnail"><img src="item-thumbnail"></div>
-                    <div class="item-thumbnail"><img src="item-thumbnail"></div>
-                    <div class="item-thumbnail"><img src="item-thumbnail"></div>
-                    <div class="item-thumbnail"><img src="item-thumbnail"></div>
+                    @if (Auth::check())
+                    @foreach ($favoriteItems as $favoriteItem)
+                    <div class="tab-panel--item-thumbnail">
+                        <a href="{{ route('item.detail', ['item_id'=>$favoriteItem->item->id]) }}"><img src="{{ asset($favoriteItem->item->image) }}" alt="{{ $favoriteItem->item->item_name }}"></a>
+                    </div>
+                    @endforeach
+                    @else
+                    <div class="tab-panel__inner--not-auth">
+                        <p>マイリストに商品を登録するには<a href="/login" class="tab-panel__inner--not-auth">ログイン</a>してください</p>
+                    </div>
+                    @endif
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
                 </div>
             </div>
         </div>

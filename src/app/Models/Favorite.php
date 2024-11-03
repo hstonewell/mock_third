@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\Auth;
+
 class Favorite extends Model
 {
     use HasFactory;
@@ -34,5 +36,13 @@ class Favorite extends Model
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    //トップページの「おすすめ」
+    public function scopeFavoriteItems($query, $userId = null)
+    {
+        $userId = $userId ?? Auth::id();
+
+        return $query->where('user_id', $userId)->orderBy('created_at', 'desc');
     }
 }
