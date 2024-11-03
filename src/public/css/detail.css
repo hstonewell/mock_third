@@ -37,20 +37,40 @@
     font-weight: 400;
 }
 
-.item-header--buttons {
+/* いいね・コメント */
+.item-header--reactions {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
+    padding: 20px 0;
 }
 
-.item-header--buttons button{
+.item-header--reactions-icon {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 40px;
+}
+
+.item-header--reactions-icon i {
+    font-size: 4em;
+    height: 2rem;
+}
+.item-header--reactions-icon p {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.item-header--reactions-icon button{
     border: none;
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    margin-right: 20px;
 }
 
-.item-header--buttons a {
+.item-header--reactions-icon a {
     color: #000;
     text-decoration: none;
 }
