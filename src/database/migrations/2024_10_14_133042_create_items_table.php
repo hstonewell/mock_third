@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->boolean('sold_out')->default(false);
+            $table->boolean('sold_out')->default(false)->comment('0:販売中 1:売切');
             $table->timestamps();
         });
     }
