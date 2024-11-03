@@ -18,7 +18,7 @@
             </div>
             @if ($errors->has('email'))
             @foreach($errors->get('email') as $message)
-            <p class="register-form--error-message">
+            <p class="form--error-message">
                 {{ $message }}
             </p>
             @endforeach
@@ -29,7 +29,7 @@
             </div>
             @if ($errors->has('password'))
             @foreach($errors->get('password') as $message)
-            <p class="register-form--error-message">
+            <p class="form--error-message">
                 {{ $message }}
             </p>
             @endforeach
