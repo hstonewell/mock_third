@@ -13,12 +13,12 @@ class FavoriteController extends Controller
     {
         Favorite::favorite(Auth::id(), $item_id);
 
-        return redirect()->route('detail.item', ['item_id' => $item_id]);
+        return redirect()->route('item.detail', ['item_id' => $item_id]);
     }
 
     public function delete($item_id) {
         Favorite::where('user_id', Auth::id())->where('item_id', $item_id)->delete();
 
-        return redirect()->route('detail.item', ['item_id' => $item_id]);
+        return redirect()->route('item.detail', ['item_id' => $item_id]);
     }
 }
