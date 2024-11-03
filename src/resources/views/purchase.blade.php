@@ -55,7 +55,11 @@
                 </div>
             </div>
             <div class="item-purchase--button">
+                @if($item->sold_out == false)
                 <button class="submit-button">購入する</button>
+                @else
+                <button class="submit-button" disabled>売り切れ</button>
+                @endif
         </form>
     </div>
     </form>

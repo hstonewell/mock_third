@@ -44,7 +44,11 @@
             </div>
         </div>
         <div class="purchase-item">
+            @if ($item->sold_out == false)
             <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="submit-button">購入する</a>
+            @else
+            <a disabled class="submit-button">売り切れ</a>
+            @endif
         </div>
         <div class="item-description">
             <h3>商品説明</h3>
