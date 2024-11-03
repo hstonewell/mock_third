@@ -151,6 +151,10 @@ return [
         'email' => [
             'required' => 'メールアドレスを入力してください',
             'email' => 'メールアドレスは「ユーザー名@ドメイン」形式で入力してください'
+        ],
+        'postcode' => [
+            'digits' => '郵便番号は7桁の半角数字で入力してください',
+            'regex' => '郵便番号は7桁の半角数字で入力してください'
         ]
     ],
 
@@ -169,7 +173,9 @@ return [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'password_confirmation' => '確認用パスワード'
+        'password_confirmation' => '確認用パスワード',
+        'postcode' => '郵便番号',
+        'address' => '住所',
     ],
 
 ];
