@@ -16,13 +16,22 @@
                 <h5>¥{{ number_format($item->price) }}</h5>
             </div>
         </div>
-        <div class="item-summary--option-unit">
-            <h3>支払い方法</h3>
-            <a href="">変更する</a>
+        <div class="item-summary--option">
+            <div class="item-summary--option--header">
+                <h3>支払い方法</h3>
+                <a href="">変更する</a>
+            </div>
         </div>
-        <div class="item-summary--option-unit">
-            <h3>配送先</h3>
-            <a href="">変更する</a>
+        <div class="item-summary--option">
+            <div class="item-summary--option--header">
+                <h3>配送先</h3>
+                <a href="{{ route('address.show', ['item_id' => $item->id]) }}">変更する</a>
+            </div>
+            <div class="item-summary--option--detail">
+                @
+                <p>〒{{ $userProfile->postcode }}</p>
+                <p>{{ $userProfile->address }} {{ $userProfile->building }}</p>
+            </div>
         </div>
     </div>
     <div class="main__inner-right">
@@ -35,7 +44,7 @@
                 </div>
                 <div class="item-purchase__payment-unit">
                     <label>支払い金額</label>
-                    <input value="金額" readonly>
+                    <input value="¥{{ number_format($item->price) }}" readonly>
                 </div>
                 <div class="item-purchase__payment-unit">
                     <label>支払い方法</label>
