@@ -91,18 +91,35 @@ input[type="radio"] {
     border-radius: 4px;
 }
 
-.tab-panel__inner:after {
+.tab-panel__inner .spacer {
     content: "";
     display: block;
     width: 18%;
+    margin-bottom: 30px;
+    aspect-ratio: 1 / 1;
+    visibility: hidden;
 }
 
-.tab-panel__inner:before {
-    content: "";
-    display: block;
-    width: 18%;
-    order: 1;
-    object-fit: cover;
+.tab-panel__inner--not-auth{
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.tab-panel__inner--not-auth p {
+    font-size: 2.4em;
+}
+
+.tab-panel__inner--not-auth a {
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+    color: #0073CC;
+}
+
+.tab-panel__inner--not-auth a:hover {
+    opacity: 0.8;
 }
 
 
