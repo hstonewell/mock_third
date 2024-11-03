@@ -17,7 +17,7 @@
             <div class="item-header--reactions">
                 <div class="item-header--reactions-icon">
                     @if(Auth::check())
-                    @if(count($item->favorites) == 0)
+                    @if(!$favorites)
                     <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
                         @csrf
                         <button type="submit">
@@ -35,7 +35,7 @@
                     @else
                     <i class="fa-regular fa-star fa-xl"></i>
                     @endif
-                    <p>{{ $item->favorites->count() }}</p>
+                    <p>{{ $item->favorites_count }}</p>
                 </div>
                 <div class="item-header--reactions-icon">
                     <a href="#comments"><i class="fa-regular fa-comment fa-2xl"></i></a>
@@ -72,9 +72,9 @@
             <div class="item-comment__unit">
                 <div class="item-comment-user" @if(Auth::id()===$comment->user_id) id="auth" @endif>
                     @if($comment->user->userProfile && $comment->user->userProfile->image)
-                    <img src="{{ asset($comment->user->userProfile->image) }}" class="thumbnail">
+                    <img src="{{ asset($comment->user->userProfile->image) }}" class="user-icon">
                     @else
-                    <img src="{{ asset('img/default-user-icon.svg') }}" class="thumbnail">
+                    <img src="{{ asset('img/default-user-icon.svg') }}" class="user-icon">
                     @endif
                     <span>{{ $comment->user->userProfile->name ?? 'ユーザー名未設定' }}</span>
                 </div>

@@ -26,13 +26,13 @@ class ItemController extends Controller
 
     public function detail($id)
     {
-        $item = Item::with('user', 'brand', 'category', 'condition')->find($id);
+        $item = Item::with('user', 'brand', 'category', 'condition')->withCount('favorites')->findOrFail($id);
 
-        $favorites = Item::withCount('favorites')->get();
+        $favorites = Auth::check() && $item->favorites->contains('user_id', Auth::id());
 
         $comments = Comment::forComment($id)->get();
 
-        return view('detail', compact('item', 'comments'));
+        return view('detail', compact('item', 'favorites', 'comments'));
     }
 
 }
