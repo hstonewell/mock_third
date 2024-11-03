@@ -16,6 +16,18 @@ class Favorite extends Model
         'item_id',
     ];
 
+    //リレーション
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    //お気に入り登録機能
     public static function favorite($user_id, $item_id)
     {
         $param = [
@@ -28,17 +40,7 @@ class Favorite extends Model
         return $favorite;
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function item()
-    {
-        return $this->belongsTo(Item::class, 'item_id');
-    }
-
-    //トップページの「おすすめ」
+    //トップページの「マイリスト」
     public function scopeFavoriteItems($query, $userId = null)
     {
         $userId = $userId ?? Auth::id();
