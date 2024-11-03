@@ -1,4 +1,4 @@
-.main__inner__tab-wrapper {
+.main__tab-wrapper {
     width: 100%;
 }
 
@@ -7,7 +7,7 @@ input[type="radio"] {
 }
 
 /* タブ */
-.main__inner--tab-labels {
+.main__tab-labels {
     display: flex;
     align-items: flex-end;
     height: 65px;
@@ -16,7 +16,7 @@ input[type="radio"] {
     border-bottom: 1px solid #5F5F5F;
 }
 
-.main__inner--tab-labels label {
+.main__tab-label {
     display: inline-block;
     width: 150px;
     text-align: left;
@@ -27,39 +27,39 @@ input[type="radio"] {
     transition: ease 0.2s opacity;
 }
 
-.main__inner--tab-labels label:hover {
+.main__tab-label:hover {
     opacity: 0.5;
 }
 
-.main__inner__tab-content {
+.main__tab-content {
     background: #fff;
 }
 
-.tab-panel {
+.tab-content__panel {
     display: none;
     width: 100%;
     padding: 50px 0;
     text-align: center;
 }
 
-#tab-recommend:checked~.main__inner--tab-labels .label-recommend {
+#tab-recommend:checked~.main__tab-labels .tab-label--recommend {
     color: #FF0000;
 }
 
-#tab-recommend:checked~.main__inner__tab-content #tab-panel-recommend {
+#tab-recommend:checked~.main__tab-content #tab-panel--recommend {
     display: block;
 }
 
-#tab-mylist:checked~.main__inner--tab-labels .label-mylist {
+#tab-mylist:checked~.main__tab-labels .tab-label--mylist {
     color: #FF0000;
 }
 
-#tab-mylist:checked~.main__inner__tab-content #tab-panel-mylist {
+#tab-mylist:checked~.main__tab-content #tab-panel--mylist {
     display: block;
 }
 
 /* 商品一覧 */
-.tab-panel__inner {
+.tab-panel__items {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -67,7 +67,7 @@ input[type="radio"] {
     margin: 0 auto;
 }
 
-.tab-panel--item-thumbnail {
+.tab-panel__item-thumbnail {
     width: 18%;
     margin-bottom: 30px;
     position: relative;
@@ -75,7 +75,7 @@ input[type="radio"] {
     aspect-ratio: 1 / 1;
 }
 
-.tab-panel--item-thumbnail a {
+.tab-panel__item-thumbnail a {
     position: absolute;
     top: 0;
     left: 0;
@@ -84,14 +84,14 @@ input[type="radio"] {
     display: block;
 }
 
-.tab-panel--item-thumbnail img {
+.tab-panel__item-thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
 }
 
-.tab-panel__inner .spacer {
+.tab-panel__spacer {
     content: "";
     display: block;
     width: 18%;
@@ -100,17 +100,17 @@ input[type="radio"] {
     visibility: hidden;
 }
 
-.tab-panel__inner--not-auth{
+.tab-panel__not-auth {
     width: 100%;
     text-align: center;
     padding-top: 50px;
 }
 
-.tab-panel__inner--not-auth p {
+.tab-panel__not-auth-text {
     font-size: 2.4em;
 }
 
-.tab-panel__inner--not-auth a {
+.tab-panel__not-auth-link {
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -118,29 +118,6 @@ input[type="radio"] {
     color: #0073CC;
 }
 
-.tab-panel__inner--not-auth a:hover {
+.tab-panel__not-auth-link:hover {
     opacity: 0.8;
-}
-
-
-/* レスポンシブ */
-@media screen and (max-width: 768px) {
-    .tab-panel--item-thumbnail {
-        width: 23%;
-    }
-    .tab-panel__inner:after {
-        width: 23%;
-    }
-    .tab-panel__inner:before {
-        width: 23%;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .tab-panel--item-thumbnail {
-        width: 32%;
-    }
-    .tab-panel__inner:after {
-        width: 32%;
-    }
 }
