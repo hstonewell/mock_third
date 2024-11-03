@@ -28,14 +28,17 @@
                 <a href="{{ route('address.show', ['item_id' => $item->id]) }}">変更する</a>
             </div>
             <div class="item-summary--option--detail">
-                @
+                @if($userProfile)
                 <p>〒{{ $userProfile->postcode }}</p>
                 <p>{{ $userProfile->address }} {{ $userProfile->building }}</p>
+                @else
+                <p>住所を設定してください。</p>
+                @endif
             </div>
         </div>
     </div>
     <div class="main__inner-right">
-        <form class="item-purchase--form">
+        <form method="post" action="{{ route('purchase.create', ['item_id' => $item->id]) }}" class="item-purchase--form">
             @csrf
             <div class="item-purchase__box">
                 <div class="item-purchase__payment-unit">
