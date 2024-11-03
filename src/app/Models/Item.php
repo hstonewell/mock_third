@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\Auth;
+
 class Item extends Model
 {
     use HasFactory;
@@ -67,6 +69,14 @@ class Item extends Model
     public function scopeRecommendItems ($query)
     {
         return $query->where('sold_out', false)->orderBy('created_at', 'desc');
+    }
+
+    //マイページの「出品した商品」
+    public function scopeSellingItems($query, $userId = null)
+    {
+        $userId = $userId ?? Auth::id();
+
+        return $query->where('user_id', $userId)->orderBy('created_at', 'desc');
     }
 
     //検索
