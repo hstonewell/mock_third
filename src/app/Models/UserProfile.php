@@ -18,8 +18,18 @@ class UserProfile extends Model
         'image',
     ];
 
+    //リレーション
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    //住所登録
+    public static function updateOrCreateAddress($userId, $data)
+    {
+        return self::updateOrCreate(
+            ['user_id' => $userId],
+            $data
+        );
     }
 }
