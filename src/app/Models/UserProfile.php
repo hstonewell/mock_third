@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Model
 {
@@ -31,5 +32,11 @@ class UserProfile extends Model
             ['user_id' => $userId],
             $data
         );
+    }
+
+    //アイコン
+    public function getImageUrl()
+    {
+        return $this->image ? Storage::url($this->image) : asset('img/default-user-icon.svg');
     }
 }
