@@ -20,7 +20,7 @@ class CommentTableSeeder extends Seeder
 
         foreach ($users as $user) {
             foreach ($user->items as $item) {
-                Comment::factory()->create([
+                Comment::create([
                     'user_id' => $user->id,
                     'item_id' => $item->id,
                     'comment' => '出品者からのコメント',
@@ -34,7 +34,7 @@ class CommentTableSeeder extends Seeder
             $otherItems = $items->where('user_id', '!=', $user->id);
 
             $otherItems->random(5)->each(function ($item) use ($user) {
-                Comment::factory()->create([
+                Comment::create([
                     'user_id' => $user->id,
                     'item_id' => $item->id,
                     'comment' => '購入検討者からのコメント',
