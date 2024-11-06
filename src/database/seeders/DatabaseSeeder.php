@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             ItemsTableSeeder::class,
             CommentTableSeeder::class,
+            FavoriteTableSeeder::class,
         ]);
     }
 }
