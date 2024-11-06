@@ -13,8 +13,8 @@ class MyPageController extends Controller
     public function show()
     {
         $userId = Auth::id();
-        $userProfile = Auth::user()->userProfile;
-
+        $user = Auth::user();
+        $userProfile = $user->userProfile;
         $sellingItems = Item::sellingItems($userId)->with('item')->get();
         $purchasedItems = PurchasedItem::purchasedItems($userId)->with('item')->get();
 
