@@ -8,13 +8,13 @@
 <div class="main__inner">
     <div class="main__profile">
         <div class="main__profile--img">
-            <img src="{{ asset($userProfile->image ?? 'img/default-user-icon.svg') }}" class="profile-thumbnail">
+            <img src="{{ $userProfile->getImageUrl() }}" class="profile-thumbnail">
         </div>
         <div class="main__profile--name">
             <h2>{{ $userProfile->name ?? 'ユーザー名未設定' }}</h2>
         </div>
         <div class="main__profile--edit">
-            <button class="edit-button">プロフィールを編集</button>
+            <a href="{{ route('profile.show') }}" class="edit-button">プロフィールを編集</a>
         </div>
     </div>
     <div class="main__tab-wrapper">

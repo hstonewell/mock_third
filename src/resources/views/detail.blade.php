@@ -75,11 +75,7 @@
             @foreach ( $comments as $comment )
             <div class="item-comment__unit">
                 <div class="item-comment-user" @if(Auth::id()===$comment->user_id) id="auth" @endif>
-                    @if($comment->user->userProfile && $comment->user->userProfile->image)
-                    <img src="{{ asset($comment->user->userProfile->image) }}" class="user-icon">
-                    @else
-                    <img src="{{ asset('img/default-user-icon.svg') }}" class="user-icon">
-                    @endif
+                    <img src="{{ $comment->user->userProfile ? $comment->user->userProfile->getImageUrl() : asset('img/default-user-icon.svg') }}" class="user-icon">
                     <span>{{ $comment->user->userProfile->name ?? 'ユーザー名未設定' }}</span>
                 </div>
                 <div class="item-comment-content" @if(Auth::id()===$comment->user_id) id="auth" @endif>
@@ -94,6 +90,13 @@
                 <label>商品へのコメント</label>
                 <input type="hidden" value="{{ $item->id }}" name="item_id">
                 <textarea class="item-comments__input" type="textarea" rows="5" name="comment"></textarea>
+                @if ($errors->has('postcode'))
+                @foreach($errors->get('postcode') as $message)
+                <p class="form--error-message">
+                    {{ $message }}
+                </p>
+                @endforeach
+                @endif
                 <button type="submit" class="submit-button">コメントを送信する</button>
             </form>
         </div>
