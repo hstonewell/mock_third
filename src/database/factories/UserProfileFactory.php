@@ -22,7 +22,6 @@ class UserProfileFactory extends Factory
             'postcode' => fake()->postcode(),
             'address' => fake()->streetAddress(),
             'building' => fake()->secondaryAddress(),
-            'image' => 'img/sample-image.png',
         ];
     }
 }
