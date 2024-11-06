@@ -27,4 +27,21 @@ class UserProfileController extends Controller
 
         return redirect()->route('purchase.show', ['item_id' => $item_id]);
     }
+
+    public function showProfile()
+    {
+        $userProfile = Auth::user()->userProfile;
+        $imageUrl = $userProfile->getImageUrl();
+
+        return view('profile', compact('imageUrl'));
+    }
+
+    public function createProfile(UserProfileRequest $request)
+    {
+        $user = Auth::user();
+
+        UserProfile::updateOrCreateAddress($user->id, $request->validated());
+
+        return redirect()->route('mypage.show');
+    }
 }
