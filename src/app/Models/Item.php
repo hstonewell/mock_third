@@ -66,9 +66,10 @@ class Item extends Model
     }
 
     //トップページの「おすすめ」
-    public function scopeRecommendItems ($query)
+    public function scopeRecommendItems($query, $userId = null)
     {
-        return $query->where('sold_out', false)->orderBy('created_at', 'desc');
+        $userId = $userId ?? Auth::id();
+        return $query->where('sold_out', false)->where('user_id', '!=', $userId)->orderBy('created_at', 'desc');
     }
 
     //マイページの「出品した商品」
