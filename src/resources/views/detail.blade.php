@@ -90,8 +90,8 @@
                 <label>商品へのコメント</label>
                 <input type="hidden" value="{{ $item->id }}" name="item_id">
                 <textarea class="item-comments__input" type="textarea" rows="5" name="comment"></textarea>
-                @if ($errors->has('postcode'))
-                @foreach($errors->get('postcode') as $message)
+                @if ($errors->has('comment'))
+                @foreach($errors->get('comment') as $message)
                 <p class="form--error-message">
                     {{ $message }}
                 </p>
