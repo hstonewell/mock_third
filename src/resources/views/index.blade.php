@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/index.css')}}">
+<link rel="stylesheet" href="{{ asset('/css/items.css')}}">
 @endsection
 
 @section('main')
@@ -35,6 +36,9 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id'=>$favoriteItem->item->id]) }}">
                             <img src="{{ asset($favoriteItem->item->image) }}" alt="{{ $favoriteItem->item->item_name }}">
+                            @if ($favoriteItem->item->sold_out == true)
+                            <p class="soldout-tag">売り切れ</p>
+                            @endif
                         </a>
                     </div>
                     @endforeach

@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/mypage.css')}}">
+<link rel="stylesheet" href="{{ asset('/css/items.css')}}">
 @endsection
 
 @section('main')
@@ -31,6 +32,9 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id'=>$sellingItem->id]) }}">
                             <img src="{{ asset($sellingItem->image) }}" alt="{{ $sellingItem->item_name }}">
+                            @if ($sellingItem->item->sold_out == true)
+                            <p class="soldout-tag">売り切れ</p>
+                            @endif
                         </a>
                     </div>
                     @endforeach
@@ -45,6 +49,9 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id'=>$purchasedItem->item->id]) }}">
                             <img src="{{ asset($purchasedItem->item->image) }}" alt="{{ $purchasedItem->item->item_name }}">
+                            @if ($purchasedItem->item->sold_out == true)
+                            <p class="soldout-tag">売り切れ</p>
+                            @endif
                         </a>
                     </div>
                     @endforeach
