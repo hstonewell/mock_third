@@ -176,6 +176,7 @@ return [
         'password_confirmation' => '確認用パスワード',
         'postcode' => '郵便番号',
         'address' => '住所',
+        'comment' => 'コメント'
     ],
 
 ];
