@@ -15,7 +15,9 @@ class PurchaseController extends Controller
         $item = Item::with('user', 'brand', 'category', 'condition')->find($id);
         $userProfile = Auth::user()->userProfile;
 
-        return view ('purchase', compact('item', 'userProfile'));
+        $hasUserAddress = $userProfile && $userProfile->address && $userProfile->postcode;
+
+        return view ('purchase', compact('item', 'userProfile', 'hasUserAddress'));
     }
 
     public function create($item_id)
