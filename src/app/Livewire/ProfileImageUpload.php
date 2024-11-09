@@ -7,7 +7,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
-class ImageUpload extends Component
+class ProfileImageUpload extends Component
 {
     use WithFileUploads;
 
@@ -16,7 +16,7 @@ class ImageUpload extends Component
 
     public function mount()
     {
-        $this->imageUrl = Auth::user()->userProfile->getImageUrl();
+        $this->imageUrl = Auth::user()->userProfile->getProfileImageUrl();
     }
 
     public function updatedImage()
@@ -41,8 +41,6 @@ class ImageUpload extends Component
 
     public function render()
     {
-        $user = Auth::user();
-
-        return view('livewire.image-upload');
+        return view('livewire.profile-image-upload');
     }
 }
