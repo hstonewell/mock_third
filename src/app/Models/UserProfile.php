@@ -35,7 +35,7 @@ class UserProfile extends Model
     }
 
     //アイコン
-    public function getImageUrl()
+    public function getProfileImageUrl()
     {
         return $this->image ? Storage::url($this->image) : asset('img/default-user-icon.svg');
     }

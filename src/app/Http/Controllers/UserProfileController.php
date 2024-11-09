@@ -31,7 +31,7 @@ class UserProfileController extends Controller
     public function showProfile()
     {
         $userProfile = Auth::user()->userProfile;
-        $imageUrl = $userProfile->getImageUrl();
+        $imageUrl = $userProfile->getProfileImageUrl();
 
         return view('profile', compact('imageUrl'));
     }

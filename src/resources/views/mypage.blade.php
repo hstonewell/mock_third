@@ -9,7 +9,7 @@
 <div class="main__inner">
     <div class="main__profile">
         <div class="main__profile--img">
-            <img src="{{ $userProfile->getImageUrl() }}" class="profile-thumbnail">
+            <img src="{{ $userProfile->getProfileImageUrl() }}" class="profile-thumbnail">
         </div>
         <div class="main__profile--name">
             <h2>{{ $userProfile->name ?? 'ユーザー名未設定' }}</h2>

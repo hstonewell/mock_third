@@ -75,7 +75,7 @@
             @foreach ( $comments as $comment )
             <div class="item-comment__unit">
                 <div class="item-comment-user" @if(Auth::id()===$comment->user_id) id="auth" @endif>
-                    <img src="{{ $comment->user->userProfile ? $comment->user->userProfile->getImageUrl() : asset('img/default-user-icon.svg') }}" class="user-icon">
+                    <img src="{{ $comment->user->userProfile ? $comment->user->userProfile->getProfileImageUrl() : asset('img/default-user-icon.svg') }}" class="user-icon">
                     <span>{{ $comment->user->userProfile->name ?? 'ユーザー名未設定' }}</span>
                 </div>
                 <div class="item-comment-content" @if(Auth::id()===$comment->user_id) id="auth" @endif>
