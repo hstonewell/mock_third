@@ -1,0 +1,79 @@
+.main__inner {
+    width: 50%;
+    margin: 0 auto;
+    padding: 60px;
+    text-align: center;
+}
+
+.edit-form__header {
+    font-size: 3.6em;
+    padding-bottom: 50px;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.edit-form__image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.edit-button {
+    width: auto;
+    height: auto;
+    padding: 8px 15px;
+}
+
+.edit-button#profile-image {
+    margin-left: 20px;
+}
+
+.edit-form__input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.edit-form__unit {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.edit-form__unit:last-of-type {
+    margin-bottom: 6rem;
+}
+
+.edit-form__input--label {
+    font-size: 2.4em;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.edit-form__input--input,
+.edit-form__input--select,
+.edit-form__input--textarea {
+    width: 100%;
+    border: solid 1px #5f5f5f;
+    border-radius: 4px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 3rem;
+    font-size: 2.4em;
+}
+
+.edit-form__input--select {
+    height: auto;
+    padding: 1rem;
+}
+
+.edit-form__input:last-of-type {
+    margin-bottom: 60px;
+}
