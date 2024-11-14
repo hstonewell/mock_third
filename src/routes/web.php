@@ -9,7 +9,8 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
-use App\Models\UserProfile;
+use App\Livewire\ItemSellingForm;
+use App\Livewire\ProfileForm;
 
 //商品表示
 Route::get('/', [ItemController::class, 'index'])->name('index');
@@ -21,9 +22,11 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 //ログイン機能はFortifyServiceProviderによる
 
+//以下auth
+
 //商品販売
 Route::get('/sell', [SellController::class, 'show'])->name('sell.show');
-Route::post('/sell', [SellController::class, 'create'])->name('sell.create');
+Route::post('/sell', [ItemSellingForm::class, 'save'])->name('sell.create');
 
 //商品購入
 Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
@@ -38,7 +41,7 @@ Route::get('/mypage', [MyPageController::class, 'show'])->name('mypage.show');
 
 //プロフィール
 Route::get('/mypage/profile', [UserProfileController::class, 'showProfile'])->name('profile.show');
-Route::post('/mypage/profile', [UserProfileController::class, 'createProfile'])->name('profile.create');
+Route::post('/mypage/profile', [ProfileForm::class, 'createProfile'])->name('profile.create');
 
 //お気に入り
 Route::post('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
