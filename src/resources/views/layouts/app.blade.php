@@ -24,7 +24,7 @@
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
             <div class="header__inner--search">
-                <form class="search-form" action="" method="GET">
+                <form class="search-form" action="search" method="get">
                     @csrf
                     <input class="search-input" type="search" name="keyword" placeholder="何をお探しですか？" value="{{ old('keyword', request('keyword')) }}">
                 </form>
@@ -40,7 +40,7 @@
                 <a href="/login" class="sell-link">ログイン</a>
                 <a href="/register" class="sell-link">会員登録</a>
                 @endif
-                <a href="" class="sell-button">出品</a>
+                <a href="/sell" class="sell-button">出品</a>
             </div>
             @elseif (Request::is('sell') || Request::is('purchase/address/*'))
             @endif
