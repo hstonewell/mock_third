@@ -176,7 +176,9 @@ return [
         'password_confirmation' => '確認用パスワード',
         'postcode' => '郵便番号',
         'address' => '住所',
-        'comment' => 'コメント'
+        'comment' => 'コメント',
+        'item_name' => '商品名',
+        'price' => '金額'
     ],
 
 ];
