@@ -8,6 +8,9 @@
 <div class="main__inner">
     <div class="main__inner--image">
         <img src="{{ asset($item->image) }}">
+        @if ($item->sold_out == true)
+        <p class="soldout-tag">売り切れ</p>
+        @endif
     </div>
     <div class="main__inner--content">
         <div class="item-header">
@@ -44,10 +47,10 @@
             </div>
         </div>
         <div class="purchase-item">
-            @if ($item->sold_out == false)
+            @if ($item->sold_out == false && $item->user_id !== Auth::id() )
             <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="submit-button">購入する</a>
             @else
-            <a disabled class="submit-button">売り切れ</a>
+            <a disabled class="submit-button">購入する</a>
             @endif
         </div>
         <div class="item-description">
