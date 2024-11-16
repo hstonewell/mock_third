@@ -46,7 +46,7 @@ class ProfileForm extends Component
     public function rules()
     {
         return [
-            'name' => 'nullable|string|max:191',
+            'name' => 'required|string|max:191',
             'postcode' => 'required|digits:7|regex:/^[0-9]+$/',
             'address' => 'required|string|max:191',
             'building' => 'nullable|string|max:191',
@@ -82,4 +82,3 @@ class ProfileForm extends Component
         return redirect()->route('mypage.show');
     }
 }
-
