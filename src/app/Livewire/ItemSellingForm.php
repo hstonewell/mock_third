@@ -8,7 +8,6 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Item;
@@ -21,18 +20,25 @@ class ItemSellingForm extends Component
     public $price;
     public $description;
     public $itemImage;
-    public $category_id;
-    public $brand_id;
-    public $condition_id;
+    public $categoryId;
+    public $brandName;
+    public $conditionId;
+
+
+    public function mount()
+    {
+        $this->categoryId = null; // 初期化
+        $this->conditionId = null; // 初期化
+        $this->brandName = '';
+    }
 
     //画面表示
     public function render()
     {
-        $brands = Brand::all();
-        $categories = Category::all();
+        $categories = Category::whereNull('parent_id')->with('children')->get();
         $conditions = Condition::all();
 
-        return view('livewire.item-selling-form', compact('brands', 'categories', 'conditions'));
+        return view('livewire.item-selling-form', compact('categories', 'conditions'));
     }
 
     //バリデーション
@@ -43,9 +49,9 @@ class ItemSellingForm extends Component
             'price' => 'required|string',
             'description' => 'nullable|string|max:1000',
             'itemImage' => 'required|image|max:5020',
-            'brand_id' => 'nullable|exists:brands,id',
-            'category_id' => 'nullable|exists:categories,id',
-            'condition_id' => 'nullable|exists:conditions,id',
+            'brandName' => 'nullable|string|max:191',
+            'categoryId' => 'nullable|exists:categories,id',
+            'conditionId' => 'nullable|exists:conditions,id',
         ];
     }
 
@@ -75,14 +81,14 @@ class ItemSellingForm extends Component
         $itemImageUrl = Storage::url($itemImage);
         $formattedPrice = $this->price = str_replace(',', '', $this->price);
 
-        $data = (array_merge($validated, [
+        $data = array_merge($validated, [
             'user_id' => Auth::id(),
             'price' => $formattedPrice,
             'image' => $itemImageUrl,
-            'brand_id' => $this->brand_id ?? null,
-            'category_id' => $this->category_id ?? null,
-            'condition_id' => $this->condition_id ?? null,
-        ]));
+            'brand_name' => $this->brandName ?? null,
+            'category_id' => $this->categoryId ?: null,
+            'condition_id' => $this->conditionId ?: null,
+        ]);
 
         Item::create($data);
 
