@@ -155,6 +155,9 @@ return [
         'postcode' => [
             'digits' => '郵便番号は7桁の半角数字で入力してください',
             'regex' => '郵便番号は7桁の半角数字で入力してください'
+        ],
+        'itemImage' => [
+            'required' => '商品画像を追加してください'
         ]
     ],
 
@@ -178,7 +181,8 @@ return [
         'address' => '住所',
         'comment' => 'コメント',
         'item_name' => '商品名',
-        'price' => '金額'
+        'price' => '金額',
+        'itemImage' => '商品画像'
     ],
 
 ];
