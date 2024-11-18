@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Category;
+
 class CategoriesTableSeeder extends Seeder
 {
     /**
@@ -13,48 +15,94 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $ladiesFashion = Category::create(['category_name' => 'レディースファッション']);
+        $mensFashion = Category::create(['category_name' => 'メンズファッション']);
+        $beauty = Category::create(['category_name' => '美容・健康']);
+
+
         $param = [
-            'category_name' => 'レディースファッション',
+            'category_name' => 'トップス',
+            'parent_id' => $ladiesFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => 'メンズファッション',
+            'category_name' => 'ボトムス',
+            'parent_id' => $ladiesFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => 'コスメ/美容',
+            'category_name' => 'シューズ',
+            'parent_id' => $ladiesFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => 'キッズ/ベビー',
+            'category_name' => 'アクセサリー',
+            'parent_id' => $ladiesFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => 'エンタメ/ホビー',
+            'category_name' => 'トップス',
+            'parent_id' => $mensFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => 'インテリア/日用品',
+            'category_name' => 'ボトムス',
+            'parent_id' => $mensFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => '家電',
+            'category_name' => 'シューズ',
+            'parent_id' => $mensFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => '食品/飲料',
+            'category_name' => 'アクセサリー',
+            'parent_id' => $mensFashion->id,
         ];
         DB::table('categories')->insert($param);
 
         $param = [
-            'category_name' => '自動車/バイク',
+            'category_name' => 'レディース化粧品',
+            'parent_id' => $beauty->id,
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => 'メンズ化粧品',
+            'parent_id' => $beauty->id,
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => '健康用品',
+            'parent_id' => $beauty->id,
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => 'エンタメ・ホビー',
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => '家具・インテリア',
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => '家電・ガジェット',
+        ];
+        DB::table('categories')->insert($param);
+
+        $param = [
+            'category_name' => 'キッズ・ベビー用品',
         ];
         DB::table('categories')->insert($param);
 
