@@ -15,7 +15,7 @@
     <div class="main__inner--content">
         <div class="item-header">
             <h2>{{ $item->item_name }}</h2>
-            <span>{{ $item->brand->brand_name }}</span>
+            <span>{{ $item->brand_name }}</span>
             <h5>¥{{ number_format($item->price) }}</h5>
             <div class="item-header--reactions">
                 <div class="item-header--reactions-icon">
@@ -63,13 +63,20 @@
                 <tr>
                     <th>カテゴリー</th>
                     <td class="item-category">
-                        <p>{{ $item->category->category_name }}</p>
+                        @if ($parentCategory)
+                        <p>{{ $parentCategory }}</p>
+                        @endif
+                        @if ($childCategory)
+                        <p>{{ $childCategory }}</p>
+                        @else
+                        <p>なし</p>
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <th>商品の状態</th>
                     <td class="item-condition">
-                        <p>{{ $item->condition->condition }}</p>
+                        <p>{{ $condition ?: '-' }}</p>
                     </td>
                 </tr>
             </table>
