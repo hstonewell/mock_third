@@ -12,25 +12,30 @@
             <input type="file" name="itemImage" id="itemImage" wire:model="itemImage" accept="image/*" hidden />
             @endif
         </div>
+        @error('itemImage')
+        <p class="form--error-message">
+            {{ $message }}
+        </p>
+        @enderror
         <div class="edit-form__unit">
             <h3 class="sell-item__form--title">商品の詳細</h3>
-            <label for="brand" class="edit-form__input--label">ブランド名</label>
-            <select name="brand" class="edit-form__input--select" wire:model="brand_id">
-                <option>選択してください</option>
-                @foreach ($brands as $brand)
-                <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
-                @endforeach
-            </select>
-            <label for="category" class="edit-form__input--label">カテゴリー</label>
-            <select name="category" class="edit-form__input--select" wire:model="category_id">
-                <option>選択してください</option>
+            <label for="brandName" class="edit-form__input--label">ブランド名</label>
+            <input type="text" name="brandName" wire:model="brandName" class="edit-form__input--input" />
+            <label for="categoryId" class="edit-form__input--label">カテゴリー</label>
+            <select name="categoryId" class="edit-form__input--select" wire:model="categoryId">
+                <option value="">選択してください</option>
                 @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                        @if ($category->children->isNotEmpty())
+                        @foreach ($category->children as $child)
+                        <option value="{{ $child->id }}">-- {{ $child->category_name }}</option>
+                        @endforeach
+                        @endif
                 @endforeach
             </select>
-            <label for="condition" class="edit-form__input--label">商品の状態</label>
-            <select name="condition" class="edit-form__input--select" wire:model="condition_id">
-                <option>選択してください</option>
+            <label for="conditionId" class="edit-form__input--label">商品の状態</label>
+            <select name="conditionId" class="edit-form__input--select" wire:model="conditionId">
+                <option value="">選択してください</option>
                 @foreach ($conditions as $condition)
                 <option value="{{ $condition->id }}">{{ $condition->condition }}</option>
                 @endforeach
