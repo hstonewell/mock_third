@@ -12,7 +12,7 @@ class PurchaseController extends Controller
 {
     public function show($id)
     {
-        $item = Item::with('user', 'brand', 'category', 'condition')->find($id);
+        $item = Item::with('user', 'category', 'condition')->find($id);
         $userProfile = Auth::user()->userProfile;
 
         $hasUserAddress = $userProfile && $userProfile->address && $userProfile->postcode;

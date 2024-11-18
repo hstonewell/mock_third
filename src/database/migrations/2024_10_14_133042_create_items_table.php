@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('brand_id')->constrained()->nullable();
-            $table->foreignId('category_id')->constrained()->nullable();
-            $table->foreignId('condition_id')->constrained()->nullable();
+            $table->string('brand_name')->nullable();
+            $table->foreignId('category_id')->nullable()->nullOnDelete();
+            $table->foreignId('condition_id')->nullable()->nullOnDelete();
             $table->string('item_name');
             $table->unsignedInteger('price');
             $table->string('description')->nullable();

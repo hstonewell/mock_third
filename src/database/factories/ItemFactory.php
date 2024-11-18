@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\User;
-use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Condition;
 
@@ -23,7 +22,7 @@ class ItemFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            'brand_id' => Brand::inRandomOrder()->first()->id,
+            'brand_name' => fake()->company(),
             'category_id' => Category::inRandomOrder()->first()->id,
             'condition_id' => Condition::inRandomOrder()->first()->id,
             'item_name' => 'サンプル商品名',

@@ -13,7 +13,7 @@ class Item extends Model
 
     protected $fillable = [
         'user_id',
-        'brand_id',
+        'brand_name',
         'category_id',
         'condition_id',
         'item_name',
@@ -33,11 +33,6 @@ class Item extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function category()
@@ -83,18 +78,7 @@ class Item extends Model
     //検索
     public function scopeKeywordSearch($query, $keyword)
     {
-        return $query->where('item_name', 'like', '%' . $keyword . '%');
-    }
-    public function scopeConditionSearch($query, $condition)
-    {
-        return $query->where('condition', $condition);
-    }
-    public function scopeBrandSearch($query, $brand)
-    {
-        return $query->where('brand', $brand);
-    }
-    public function scopeCategorySearch($query, $category)
-    {
-        return $query->where('Category', $category);
+        $userId = $userId ?? Auth::id();
+        return $query->where('item_name', 'like', '%' . $keyword . '%')->where('sold_out', false)->where('user_id', '!=', $userId)->orderBy('created_at', 'desc');
     }
 }
