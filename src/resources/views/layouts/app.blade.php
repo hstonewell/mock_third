@@ -19,12 +19,12 @@
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
-            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile'))
+            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile') || Request::is('search'))
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
             <div class="header__inner--search">
-                <form class="search-form" action="search" method="get">
+                <form class="search-form" action="{{ route('search') }}" method="get">
                     @csrf
                     <input class="search-input" type="search" name="keyword" placeholder="何をお探しですか？" value="{{ old('keyword', request('keyword')) }}">
                 </form>
