@@ -13,8 +13,13 @@ use App\Livewire\ItemSellingForm;
 use App\Livewire\ProfileForm;
 
 //商品表示
-Route::get('/', [ItemController::class, 'index'])->name('index');
+//indexページはキャッシュ不可
+Route::middleware('cache.headers:no_store;max_age=0;etag')->group(function (){
+    Route::get('/', [ItemController::class, 'index'])->name('index');
+});
+
 Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('item.detail');
+Route::get('/search', [ItemController::class, 'search'])->name('search');
 
 //登録
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -22,7 +27,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 //ログイン機能はFortifyServiceProviderによる
 
-//以下auth
+Route::middleware('auth')->group(function () {
 
 //商品販売
 Route::get('/sell', [SellController::class, 'show'])->name('sell.show');
@@ -50,3 +55,5 @@ Route::post('/unfavorite/{item_id}', [FavoriteController::class, 'delete'])->nam
 //コメント
 Route::post('/comment', [CommentController::class, 'create'])->name('comment.create');
 Route::post('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
+
+});
