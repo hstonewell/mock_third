@@ -10,11 +10,11 @@
         <h2>住所の変更</h2>
     </div>
     <div class="edit-form">
-        <form method="post" action="{{ route('address.create', ['item_id' => $item->id]) }}">
+        <form method="post" action="{{ route('address.create', ['item_id' => $item->id]) }}" class="edit-form__input">
             @csrf
-            <div class="edit-form__input">
-                <label>郵便番号</label>
-                <input type="text" name="postcode" value="{{ old('postcode', Auth::user()->userProfile->postcode ?? '') }}" />
+            <div class="edit-form__unit">
+                <label class="edit-form__input--label">郵便番号</label>
+                <input class="edit-form__input--input" type="text" name="postcode" value="{{ old('postcode', Auth::user()->userProfile->postcode ?? '') }}" />
                 @if ($errors->has('postcode'))
                 @foreach($errors->get('postcode') as $message)
                 <p class="form--error-message">
@@ -23,9 +23,9 @@
                 @endforeach
                 @endif
             </div>
-            <div class="edit-form__input">
-                <label>住所</label>
-                <input type="text" name="address" value="{{ old('address', Auth::user()->userProfile->address ?? '') }}" />
+            <div class="edit-form__unit">
+                <label class="edit-form__input--label">住所</label>
+                <input class="edit-form__input--input" type="text" name="address" value="{{ old('address', Auth::user()->userProfile->address ?? '') }}" />
                 @if ($errors->has('address'))
                 @foreach($errors->get('address') as $message)
                 <p class="form--error-message">
@@ -34,9 +34,9 @@
                 @endforeach
                 @endif
             </div>
-            <div class="edit-form__input">
-                <label>建物名</label>
-                <input type="text" name="building" value="{{ old('building', Auth::user()->userProfile->building ?? '') }}" />
+            <div class="edit-form__unit">
+                <label class="edit-form__input--label">建物名</label>
+                <input class="edit-form__input--input" type="text" name="building" value="{{ old('building', Auth::user()->userProfile->building ?? '') }}" />
                 @if ($errors->has('building'))
                 @foreach($errors->get('building') as $message)
                 <p class="form--error-message">
