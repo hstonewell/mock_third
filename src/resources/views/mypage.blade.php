@@ -9,7 +9,11 @@
 <div class="main__inner">
     <div class="main__profile">
         <div class="main__profile--img">
+            @if($userProfile)
             <img src="{{ $userProfile->getProfileImageUrl() }}" class="profile-thumbnail">
+            @else
+            <img src="{{ asset('img/default-user-icon.svg') }}" class="profile-thumbnail">
+            @endif
         </div>
         <div class="main__profile--name">
             <h2>{{ $userProfile->name ?? 'ユーザー名未設定' }}</h2>
@@ -32,7 +36,7 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id'=>$sellingItem->id]) }}">
                             <img src="{{ asset($sellingItem->image) }}" alt="{{ $sellingItem->item_name }}">
-                            @if ($sellingItem->item->sold_out == true)
+                            @if (optional($sellingItem->item)->sold_out)
                             <p class="soldout-tag">売り切れ</p>
                             @endif
                         </a>

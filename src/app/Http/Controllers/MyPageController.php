@@ -14,8 +14,10 @@ class MyPageController extends Controller
     {
         $userId = Auth::id();
         $user = Auth::user();
+
         $userProfile = $user->userProfile;
-        $sellingItems = Item::sellingItems($userId)->with('item')->get();
+
+        $sellingItems = Item::sellingItems($userId)->get();
         $purchasedItems = PurchasedItem::purchasedItems($userId)->with('item')->get();
 
         return view('mypage', compact('userProfile', 'sellingItems', 'purchasedItems'));
