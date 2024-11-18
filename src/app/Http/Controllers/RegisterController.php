@@ -66,11 +66,6 @@ class RegisterController extends Controller
 
         event(new Registered($user = $creator->create($request->all())));
 
-        return view('auth.login');
-    }
-
-    public function viewThanks()
-    {
-        return view('thanks');
+        return view('profile');
     }
 }
