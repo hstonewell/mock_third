@@ -57,6 +57,10 @@
             @endforeach
             @endif
         </div>
+        @if (session('is_newly_registered'))
+        <button type="submit" class="submit-button">登録する</button>
+        @else
         <button type="submit" class="submit-button">更新する</button>
+        @endif
     </form>
 </div>
