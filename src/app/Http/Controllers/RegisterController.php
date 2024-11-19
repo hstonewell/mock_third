@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\RegisterViewResponse;
@@ -66,6 +67,9 @@ class RegisterController extends Controller
 
         event(new Registered($user = $creator->create($request->all())));
 
-        return view('profile');
+        Auth::login($user);
+        session(['is_newly_registered' => true]);
+
+        return redirect()->route('profile.show');
     }
 }
