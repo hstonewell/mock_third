@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Item;
 use App\Models\UserProfile;
+
+use App\Http\Requests\UserProfileRequest;
 
 class UserProfileController extends Controller
 {
@@ -31,17 +32,10 @@ class UserProfileController extends Controller
     public function showProfile()
     {
         $userProfile = Auth::user()->userProfile;
-        $imageUrl = $userProfile->getProfileImageUrl();
 
-        return view('profile', compact('imageUrl'));
+        $imageUrl = $userProfile ? $userProfile->getProfileImageUrl() : asset('img/default-user-icon.svg');
+
+        return view('profile', compact('imageUrl', 'userProfile'));
     }
 
-    public function createProfile(UserProfileRequest $request)
-    {
-        $user = Auth::user();
-
-        UserProfile::updateOrCreateAddress($user->id, $request->validated());
-
-        return redirect()->route('mypage.show');
-    }
 }
