@@ -19,7 +19,7 @@
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
-            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile') || Request::is('search'))
+            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile') && !session('is_newly_registered') || Request::is('search'))
             <div class="header__inner--logo">
                 <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
