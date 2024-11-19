@@ -79,6 +79,11 @@ class ProfileForm extends Component
 
         UserProfile::updateOrCreate(['user_id' => Auth::id()], $data);
 
+        if (session('is_newly_registered')) {
+            session()->forget('is_newly_registered');
+            return redirect()->route('index');
+        }
+
         return redirect()->route('mypage.show');
     }
 }
