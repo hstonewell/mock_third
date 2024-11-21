@@ -233,3 +233,10 @@
 .submit-button {
     margin-top: 20px;
 }
+
+.item-comment-content--delete button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}

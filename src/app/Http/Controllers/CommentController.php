@@ -18,4 +18,17 @@ class CommentController extends Controller
 
         return redirect()->route('item.detail', ['item_id' => $request->input('item_id')]);
     }
+
+    public function delete ($comment_id)
+    {
+        $comment = Comment::where('id', $comment_id)
+        ->where('user_id', Auth::id())
+        ->first();
+
+        $itemId = $comment->item_id;
+
+        $comment->delete();
+
+        return redirect()->route('item.detail', ['item_id' => $itemId]);
+    }
 }

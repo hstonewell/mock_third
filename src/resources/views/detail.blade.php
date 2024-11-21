@@ -90,6 +90,10 @@
                 </div>
                 <div class="item-comment-content" @if(Auth::id()===$comment->user_id) id="auth" @endif>
                     <p>{{ $comment->comment }}</p>
+                    <form class="item-comment-content--delete" method="post" action="{{ route('comment.delete', ['comment_id' => $comment->id]) }}">
+                        @csrf
+                        <button type="submit" @if(Auth::id()!=$comment->user_id) hidden @endif><i class="fa-solid fa-trash-can" style="color:#d9d9d9"></i>削除</button>
+                    </form>
                 </div>
             </div>
             @endforeach
