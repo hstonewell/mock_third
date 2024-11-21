@@ -46,7 +46,7 @@ class ItemSellingForm extends Component
     {
         return [
             'item_name' => 'required|string|max:191',
-            'price' => 'required|string',
+            'price' => 'required|integer|min:300|max:9999999',
             'description' => 'nullable|string|max:1000',
             'itemImage' => 'required|image|max:5020',
             'brandName' => 'nullable|string|max:191',
