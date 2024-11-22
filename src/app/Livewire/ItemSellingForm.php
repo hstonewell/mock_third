@@ -66,12 +66,6 @@ class ItemSellingForm extends Component
         $this->itemImage = null;
     }
 
-    //販売価格のカンマ表示
-    public function updatedPrice($value)
-    {
-        $this->price = number_format(str_replace(',', '', $value));
-    }
-
     //保存処理
     public function save()
     {
@@ -79,11 +73,10 @@ class ItemSellingForm extends Component
 
         $itemImage = $this->itemImage->store('item-images', 'public');
         $itemImageUrl = Storage::url($itemImage);
-        $formattedPrice = $this->price = str_replace(',', '', $this->price);
 
         $data = array_merge($validated, [
             'user_id' => Auth::id(),
-            'price' => $formattedPrice,
+            'price' => $this->price,
             'image' => $itemImageUrl,
             'brand_name' => $this->brandName ?? null,
             'category_id' => $this->categoryId ?: null,
