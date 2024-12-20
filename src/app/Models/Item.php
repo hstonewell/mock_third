@@ -79,6 +79,6 @@ class Item extends Model
     public function scopeKeywordSearch($query, $keyword)
     {
         $userId = $userId ?? Auth::id();
-        return $query->where('item_name', 'like', '%' . $keyword . '%')->where('sold_out', false)->where('user_id', '!=', $userId)->orderBy('created_at', 'desc');
+        return $query->where('item_name', 'like', '%' . $keyword . '%')->where('sold_out', false)->orderBy('created_at', 'desc');
     }
 }
