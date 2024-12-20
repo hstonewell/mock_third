@@ -77,18 +77,13 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
-        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+        const stripe = Stripe("{{ config('stripe.public_key') }}");
         const form = document.getElementById('payment-form');
         const submitButton = document.getElementById('submit');
         const errorElement = document.getElementById('error-message');
 
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault(); // デフォルトのクリック動作を無効化
-            form.dispatchEvent(new Event('submit')); // フォーム送信イベントを手動でトリガー
-        });
-
         // デバッグ用のコンソールログを追加
-        console.log('Stripe Key:', "{{ env('STRIPE_KEY') }}");
+        console.log('Stripe Key:', "{{ config('stripe.public_key') }}");
         console.log('Form:', form);
         console.log('Amount:', form.dataset.amount);
 
@@ -182,55 +177,47 @@
                 submitButton.disabled = true;
                 errorElement.textContent = '';
 
-                // 支払い方法の取得
-                const paymentMethod = paymentMethodElement.value; // 支払い方法の取得
-                console.log(`選択された支払い方法: ${paymentMethod}`);
-
                 try {
-                    if (paymentMethod === 'card') {
-                        // card支払いの場合、従来の処理
-                        const submitResult = await elements.submit();
+                    const submitResult = await elements.submit();
+                    const paymentMethod = submitResult.paymentMethodTypes;
 
-                        if (submitResult.error) {
-                            errorElement.textContent = submitResult.error.message;
-                            submitButton.disabled = false;
-                            return;
-                        }
+                    if (submitResult.error) {
+                        errorElement.textContent = submitResult.error.message;
+                        submitButton.disabled = false;
+                        return;
+                    }
 
-                        const {
-                            error,
-                            paymentIntent
-                        } = await stripe.confirmPayment({
-                            elements,
-                            clientSecret: clientSecret,
-                            redirect: 'if_required',
-                            confirmParams: {
-                                return_url: "{{ route('index') }}",
-                                payment_method_data: {
-                                    billing_details: {
-                                        address: {
-                                            country: "JP"
-                                        }
+                    const {
+                        error,
+                        paymentIntent
+                    } = await stripe.confirmPayment({
+                        elements,
+                        clientSecret: clientSecret,
+                        redirect: 'if_required',
+                        confirmParams: {
+                            return_url: "{{ route('index') }}",
+                            payment_method_data: {
+                                billing_details: {
+                                    address: {
+                                        country: "JP"
                                     }
                                 }
                             }
-                        });
+                        },
+                    });
 
-                        if (error) {
-                            // 支払い方法ごとの分岐処理
-                            if (error.type === 'card_error' || error.type === 'validation_error') {
-                                errorElement.textContent = error.message;
-                            } else if (error.payment_intent?.next_action?.type === 'display_bank_transfer_instructions') {
-                                window.location.href = "{{ route('bank.show', ['item_id' => $item->id]) }}";
-                            } else if (error.payment_intent?.next_action?.type === 'display_konbini_instructions') {
-                                window.location.href = "{{ route('konbini.show', ['item_id' => $item->id]) }}";
-                            } else {
-                                errorElement.textContent = '予期しないエラーが発生しました';
-                            }
-                            submitButton.disabled = false;
-                            return;
+                    if (error) {
+                        if (error.type === 'card_error' || error.type === 'validation_error') {
+                            errorElement.textContent = error.message;
+                        } else {
+                            errorElement.textContent = '予期しないエラーが発生しました';
                         }
+                        submitButton.disabled = false;
+                        return;
+                    }
 
+                    //銀行振込・コンビニ支払いでもこっちに飛んじゃう
+                    if (paymentIntent.payment_method_types.includes('card')) {
                         const completeResponse = await fetch("{{ route('purchase.complete', ['item_id' => $item->id]) }}", {
                             method: "POST",
                             headers: {
@@ -239,6 +226,7 @@
                             },
                             body: JSON.stringify({
                                 payment_intent_id: paymentIntent.id,
+                                payment_method_type: paymentIntent.payment_method_types[0],
                             }),
                         });
 
@@ -249,12 +237,6 @@
 
                         alert("購入が完了しました！");
                         window.location.href = "{{ route('index') }}";
-                    } else if (paymentMethod === 'bank_transfer') {
-                        window.location.href = "{{ route('bank.show', ['item_id' => $item->id]) }}";
-                    } else if (paymentMethod === 'konbini') {
-                        window.location.href = "{{ route('konbini.show', ['item_id' => $item->id]) }}";
-                    } else {
-                        throw new Error('無効な支払い方法が選択されました');
                     }
                 } catch (error) {
                     console.error("購入処理エラー:", error);
@@ -262,8 +244,6 @@
                     submitButton.disabled = false;
                 }
             });
-
-
 
         } catch (error) {
             console.error("完全なエラー詳細:", error);
