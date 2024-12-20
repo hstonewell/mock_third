@@ -19,23 +19,23 @@ class PurchasedItem extends Model
     //リレーション
     public function buyer()
     {
-        return $this->belongsTo(User::class, 'buyer_id', 'user_id');
+        return $this->belongsTo(User::class, 'buyer_id', 'user_id')->withTrashed();
     }
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
 
-    public static function purchase($item_id)
+    public static function purchase($itemId)
     {
         $param = [
             'buyer_id' => Auth::id(),
-            'item_id' => $item_id,
+            'item_id' => $itemId,
         ];
 
         $purchase = PurchasedItem::create($param);
 
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
         $item->sold_out = true;
         $item->save();
 
