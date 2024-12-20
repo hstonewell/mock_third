@@ -13,15 +13,16 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $recommendItems = Item::recommendItems()->get();
+        $searchResults = session('searchResults', collect());
 
         if (Auth::check()) {
             $userId = $request->user()->id;
             $favoriteItems = Favorite::favoriteItems($userId)->with('item')->get();
 
-            return view('index', compact('recommendItems', 'favoriteItems'));
+            return view('index', compact('searchResults', 'recommendItems', 'favoriteItems'));
         }
 
-        return view('index', compact('recommendItems'));
+        return view('index', compact('recommendItems', 'searchResults'));
     }
 
     public function detail($id)
@@ -45,12 +46,17 @@ class ItemController extends Controller
     {
         $keyword = $request->input('keyword');
 
+        if (empty($keyword)) {
+            return redirect()->route('index');
+        }
+
         $searchResults = Item::KeywordSearch($keyword)
         ->where('sold_out', false)
         ->get();
         $text = $request->keyword . "の検索結果";
 
-        session()->flash('fs_msg', $text);
+        session()->put('searchResults', $searchResults);
+        session()->flash('fs_msg', "{$keyword}の検索結果");
 
         $recommendItems = Item::recommendItems()->get();
 
@@ -61,7 +67,7 @@ class ItemController extends Controller
             return view('index', compact('searchResults', 'recommendItems', 'favoriteItems'));
         }
 
-        return view('index', compact('searchResults', 'recommendItems', 'text'));
+        return redirect()->route('index');
     }
 
 }
