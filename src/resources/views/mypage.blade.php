@@ -26,8 +26,10 @@
         <input id="tab-selling" type="radio" name="tab-button" checked>
         <input id="tab-purchased" type="radio" name="tab-button">
         <div class="main__tab-labels">
-            <label class="main__tab-label tab-label--selling" for="tab-selling">出品した商品</label>
-            <label class="main__tab-label tab-label--purchased" for="tab-purchased">購入した商品</label>
+            <div class="main__tab-labels__inner">
+                <label class="main__tab-label tab-label--selling" for="tab-selling">出品した商品</label>
+                <label class="main__tab-label tab-label--purchased" for="tab-purchased">購入した商品</label>
+            </div>
         </div>
         <div class="main__tab-content">
             <div id="tab-panel--selling" class="tab-content__panel">
