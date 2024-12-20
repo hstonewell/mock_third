@@ -15,13 +15,13 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            @if(Request::is('register') || Request::is('login'))
+            @if(Request::is('register', 'login') )
             <div class="header__inner--logo">
-                <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
+                <a href="{{ route('index') }}"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
-            @elseif (Request::is('/') || Request::is('item/*') || Request::is('purchase/*') || Request::is('mypage') || Request::is('mypage/profile') && !session('is_newly_registered') || Request::is('search'))
+            @elseif (Request::is('/', 'item/*', 'purchase/*', 'mypage', 'mypage/profile', 'search') && !Request::is('purchase/address/*') && !session('is_newly_registered'))
             <div class="header__inner--logo">
-                <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
+                <a href="{{ route('index') }}"><img src=" {{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
             <div class="header__inner--search">
                 <form class="search-form" action="{{ route('search') }}" method="get">
@@ -33,22 +33,27 @@
                 @if (Auth::check())
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="sell-link">ログアウト</button>
+                    <button type="submit" class="header__link">ログアウト</button>
                 </form>
-                <a href="/mypage" class="sell-link">マイページ</a>
+                @hasanyrole('admin')
+                <a href="{{ route('admin.index') }}" class="header__link">管理者メニュー</a>
                 @else
-                <a href="/login" class="sell-link">ログイン</a>
-                <a href="/register" class="sell-link">会員登録</a>
+                <a href="/mypage" class="header__link">マイページ</a>
+                @endhasanyrole
+                @else
+                <a href="/login" class="header__link">ログイン</a>
+                <a href="/register" class="header__link">会員登録</a>
                 @endif
                 <a href="/sell" class="sell-button">出品</a>
             </div>
-            @elseif (Request::is('sell') || Request::is('purchase/address/*'))
             @endif
+            @yield('header')
         </div>
     </header>
     <main class="main">
         @yield('main')
     </main>
+    @yield('script')
 </body>
 
 </html>
