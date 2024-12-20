@@ -22,7 +22,6 @@ class CommentController extends Controller
     public function delete ($comment_id)
     {
         $comment = Comment::where('id', $comment_id)
-        ->where('user_id', Auth::id())
         ->first();
 
         $itemId = $comment->item_id;
