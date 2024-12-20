@@ -23,7 +23,7 @@
                     @if(!$favorites)
                     <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
                         @csrf
-                        <button type="submit">
+                        <button type="submit" @if($item->user_id == Auth::id()) disabled @endif>
                             <i class="fa-regular fa-star fa-xl"></i>
                         </button>
                     </form>
@@ -90,10 +90,14 @@
                 </div>
                 <div class="item-comment-content" @if(Auth::id()===$comment->user_id) id="auth" @endif>
                     <p>{{ $comment->comment }}</p>
+                    @auth
+                    @if(Auth::id()==$comment->user_id || Auth::user()->hasRole('admin'))
                     <form class="item-comment-content--delete" method="post" action="{{ route('comment.delete', ['comment_id' => $comment->id]) }}">
                         @csrf
-                        <button type="submit" @if(Auth::id()!=$comment->user_id) hidden @endif><i class="fa-solid fa-trash-can" style="color:#d9d9d9"></i>削除</button>
+                        <button type="submit"><i class="fa-solid fa-trash-can" style="color:#d9d9d9"></i>削除</button>
                     </form>
+                    @endif
+                    @endauth
                 </div>
             </div>
             @endforeach
