@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 use Laravel\Cashier\Cashier;
 
@@ -24,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('Laravel\Fortify\Http\Requests\LoginRequest', \App\Http\Requests\LoginRequest::class);
 
         Cashier::calculateTaxes();
+
+        Paginator::useBootstrap();
     }
 }
