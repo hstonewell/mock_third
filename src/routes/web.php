@@ -9,8 +9,13 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PaymentInstructionController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
 use App\Livewire\ItemSellingForm;
 use App\Livewire\ProfileForm;
+use App\Models\PurchasedItem;
+use Illuminate\Support\Facades\Log;
 
 //商品表示
 //indexページはキャッシュ不可
@@ -35,7 +40,9 @@ Route::post('/sell', [ItemSellingForm::class, 'save'])->name('sell.create');
 
 //商品購入
 Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-Route::post('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
+// Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+Route::post('/purchase/{item_id}', [PurchaseController::class, 'secret'])->name('purchase.secret');
+Route::post('/purchase/{item_id}/complete', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
 //住所変更
 Route::get('/purchase/address/{item_id}', [UserProfileController::class, 'showAddress'])->name('address.show');
@@ -56,4 +63,12 @@ Route::post('/unfavorite/{item_id}', [FavoriteController::class, 'delete'])->nam
 Route::post('/comment', [CommentController::class, 'create'])->name('comment.create');
 Route::post('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
 
+Route::get('/purchase/{item_id}/bank', [PaymentInstructionController::class, 'showBank'])->name('bank.show');
+Route::get('/purchase/{item_id}/konbini', [PaymentInstructionController::class, 'showKonbini'])->name('konbini.show');
+});
+
+//管理者用
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/dashboard/{user_id}', [AdminController::class, 'destroy'])->name('user.delete');
 });

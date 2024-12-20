@@ -1,0 +1,141 @@
+.header__inner--menu {
+    width: auto;
+}
+
+.dashboard {
+    width: 70%;
+    margin: 0 auto;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.users-table__header h2{
+    font-size: 3.8em;
+    line-height: 3em;
+}
+
+/* ユーザ一覧のテーブル */
+.users-table {
+    width: 100%;
+}
+
+.users-table table {
+    width: 100%;
+}
+
+.users-table th, p {
+    font-size: 2.6em;
+}
+
+.users-table th, td {
+    padding: 1rem 2rem;
+    background-color: #D9D9D9;
+    border-right: 1px solid #fff;
+    text-align: left;
+}
+
+.users-table th:last-child {
+    border: none;
+    text-align: center;
+}
+
+.users-table td {
+    background-color: #fff;
+    text-align: left;
+}
+
+.users-table td:nth-child(3){
+    border-right: none;
+}
+
+.users-table tr:nth-child(odd) td {
+    background-color: #D9D9D9;
+}
+
+/* ページネーション */
+.pagination {
+    display: inline-block;
+    padding: 1.5rem;
+}
+
+.page-item {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #FF5555;
+    font-size: 3.2em;
+    font-weight: bold;
+}
+
+.page-item a,
+.page-item.disabled{
+    text-decoration: none;
+    color: #FF5555;
+}
+
+.page-item.active {
+    background-color: #FF5555;
+    color: #fff;
+}
+
+/* メールフォーム */
+.mail-form {
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.65);
+    align-items: center;
+    z-index: 0;
+    overflow: auto;
+}
+
+.mail-form__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 45%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.mail-form--close-button {
+    width: 100%;
+    height: 0;
+    position: relative;
+    right: 2em;
+    top: 3em;
+    text-align: right;
+}
+
+.email-button,
+.mail-form--close-button button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.mail-form__inner form{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem 3rem 3rem;
+}
+
+.mail-form__email {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 2.4em;
+}
+
+textarea {
+    margin-bottom: 2rem;
+}

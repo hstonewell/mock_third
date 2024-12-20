@@ -4,14 +4,21 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PhpParser\Node\Expr\FuncCall;
+
+use Laravel\Cashier\Billable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use HasRoles;
+    use Billable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -69,6 +76,30 @@ class User extends Authenticatable
 
     public function userProfile()
     {
-        return $this->hasOne(UserProfile::class, 'user_id');
+        return $this->hasOne(UserProfile::class, 'user_id') ?: new UserProfile();
     }
+
+    //削除ユーザ
+    protected static function booted()
+    {
+        static::deleting(function ($user) {
+            // リレーション先データの削除
+            $user->items()->each(function ($item) {
+                $item->delete();
+            });
+
+            $user->comments()->each(function ($comment) {
+                $comment->delete();
+            });
+
+            $user->favorites()->each(function ($favorite) {
+                $favorite->delete();
+            });
+
+            if ($user->userProfile) {
+                $user->userProfile->delete();
+            }
+        });
+    }
+
 }
