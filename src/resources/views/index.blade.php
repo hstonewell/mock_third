@@ -24,13 +24,18 @@
             @if(session('fs_msg'))
             <div id="tab-panel--search" class="tab-content__panel">
                 <div class="tab-panel__items">
-                    @foreach ($searchResults as $searchResult)
+                    @forelse ($searchResults ?? [] as $searchResult)
                     <div class="tab-panel__item-thumbnail">
-                        <a href="{{ route('item.detail', ['item_id'=>$searchResult->id]) }}">
+                        <a href="{{ route('item.detail', ['item_id' => $searchResult->id]) }}">
                             <img src="{{ asset($searchResult->image) }}" alt="{{ $searchResult->item_name }}">
                         </a>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="tab-panel__not-found">
+                        <p class="tab-panel__not-found-text">該当する商品が見つかりませんでした。
+                        </p>
+                    </div>
+                    @endforelse
                     <div class="tab-panel__spacer"></div>
                     <div class="tab-panel__spacer"></div>
                     <div class="tab-panel__spacer"></div>
@@ -65,9 +70,9 @@
                     </div>
                     @endforeach
                     @else
-                    <div class="tab-panel__not-auth">
-                        <p class="tab-panel__not-auth-text">マイリストに商品を登録するには
-                            <a href="/login" class="tab-panel__not-auth-link">ログイン</a>してください
+                    <div class="tab-panel__not-found">
+                        <p class="tab-panel__not-found-text">マイリストに商品を登録するには
+                            <a href="/login" class="tab-panel__not-found-link">ログイン</a>してください
                         </p>
                     </div>
                     @endif
