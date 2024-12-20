@@ -12,8 +12,8 @@ input[type="radio"] {
     align-items: flex-end;
     justify-content: center;
     width: 100%;
-    height: 65px;
-    padding-bottom: 15px;
+    height: 6.5rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid #5F5F5F;
 }
 
@@ -44,7 +44,7 @@ input[type="radio"] {
 .tab-content__panel {
     display: none;
     width: 100%;
-    padding: 50px 0;
+    padding: 5rem 0;
     text-align: center;
 }
 
