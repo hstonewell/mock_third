@@ -17,8 +17,9 @@
             <h2>{{ $item->item_name }}</h2>
             <span>{{ $item->brand_name }}</span>
             <h5>¥{{ number_format($item->price) }}</h5>
-            <div class="item-header--reactions">
-                <div class="item-header--reactions-icon">
+            <table class="item-header--reactions">
+                <tr class="item-header--reactions-icon">
+                    <td>
                     @if(Auth::check())
                     @if(!$favorites)
                     <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
@@ -38,13 +39,20 @@
                     @else
                     <i class="fa-regular fa-star fa-xl"></i>
                     @endif
-                    <p>{{ $item->favorites_count }}</p>
-                </div>
-                <div class="item-header--reactions-icon">
-                    <a href="#comments"><i class="fa-regular fa-comment fa-2xl"></i></a>
-                    <p>{{ $item->comments->count() }}</p>
-                </div>
-            </div>
+                    </td>
+                    <td>
+                        <a href="#comments"><i class="fa-regular fa-comment fa-xl"></i></a>
+                    </td>
+                </tr>
+                <tr class="item-header--reactions-icon">
+                    <td>
+                        <p>{{ $item->favorites_count }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $item->comments->count() }}</p>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="purchase-item">
             @if ($item->sold_out == false && $item->user_id !== Auth::id() )

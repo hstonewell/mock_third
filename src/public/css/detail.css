@@ -53,28 +53,31 @@
 
 /* いいね・コメント */
 .item-header--reactions {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    padding: 2rem 0;
+    margin: 3rem 0;
 }
 
 .item-header--reactions-icon {
-    display: flex;
-    flex-direction: column;
     text-align: center;
-    margin-right: 4rem;
+    line-height: 2rem;
+}
+
+.item-header--reactions-icon td {
+    width: 8rem;
+    vertical-align: middle;
 }
 
 .item-header--reactions-icon i {
-    font-size: 4em;
-    height: 2rem;
+    font-size: 2em;
+    height: auto;
 }
 .item-header--reactions-icon p {
     font-size: 1.8em;
     font-weight: 700;
     margin-top: 0.8rem;
+}
+
+.fa-comment {
+    transform: scale(2);
 }
 
 .item-header--reactions-icon button{
