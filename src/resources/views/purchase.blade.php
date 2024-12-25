@@ -21,14 +21,30 @@
                 <h3>支払い方法</h3>
             </div>
             <div class="item-summary--option--detail">
-                <form id="payment-form" data-amount="{{ $item->price }}">
+                <!-- <form id="payment-form" data-amount="{{ $item->price }}">
                     @csrf
                     <div id="payment-element">
-                        <!--Stripe.js injects the Payment Element-->
                     </div>
                     <div id="error-message">
-                        <!-- Display error message to your customers here -->
                     </div>
+                </form> -->
+                <form id="payment-form" method="post" action="{{ route('payment.create', ['item_id' => $item->id]) }}">
+                    @csrf
+                    <label>
+                        <input type="radio" name="payment" value="クレジットカード" checked onchange="updatePaymentMethod(this)"> クレジットカード
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="payment" value="銀行振込" onchange="updatePaymentMethod(this)"> 銀行振込
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="payment" value="コンビニ支払" onchange="updatePaymentMethod(this)"> コンビニ支払
+                    </label>
+
+                    <input type="hidden" name="name" value="{{ $item->item_name }}">
+                    <input type="hidden" name="price" value="{{ $item->price }}">
+                    <input type="hidden" name="payment_method" id="selected-payment-input" value="クレジットカード">
                 </form>
             </div>
         </div>
@@ -59,11 +75,11 @@
             </div>
             <div class="item-purchase__payment-unit">
                 <p>支払い方法</p>
-                <p>支払い方法</p>
+                <p id="selected-payment-method">選択されていません</p>
             </div>
             <div class="item-purchase--button">
                 @if($item->sold_out == false)
-                <button id="submit" class="submit-button" aria-controls="payment-form" {{ !$hasUserAddress ? 'disabled' : '' }}>購入する</button>
+                <button id="submit" class="submit-button" onclick="submitForm()" aria-controls="payment-form" {{ !$hasUserAddress ? 'disabled' : '' }}>購入する</button>
                 @else
                 <button id="submit" class="submit-button" disabled>売り切れ</button>
                 @endif
@@ -73,182 +89,25 @@
 </div>
 @endsection
 
-@section('script')
-<script src="https://js.stripe.com/v3/"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const stripe = Stripe("{{ config('stripe.public_key') }}");
-        const form = document.getElementById('payment-form');
-        const submitButton = document.getElementById('submit');
-        const errorElement = document.getElementById('error-message');
+    function updatePaymentMethod(radio) {
+        document.getElementById('selected-payment-method').textContent = radio.value;
+        document.getElementById('selected-payment-input').value = radio.value;
+    }
 
-        // デバッグ用のコンソールログを追加
-        console.log('Stripe Key:', "{{ config('stripe.public_key') }}");
-        console.log('Form:', form);
-        console.log('Amount:', form.dataset.amount);
-
-        try {
-            const response = await fetch("{{ route('purchase.secret', ['item_id' => $item->id]) }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                },
-                body: JSON.stringify({
-                    amount: parseInt(form.dataset.amount),
-                }),
-            });
-
-            // レスポンスの詳細をログ出力
-            console.log('Response status:', response.status);
-            const responseText = await response.text();
-            console.log('Response body:', responseText);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
-            }
-
-            const {
-                clientSecret
-            } = JSON.parse(responseText);
-            console.log('Client Secret:', clientSecret);
-
-            // Stripe Elementsの初期化
-            const appearance = {
-                theme: 'stripe',
-                variables: {
-                    colorPrimary: '#0073CC',
-                    colorBackground: '#ffffff',
-                    colorText: '#000',
-                    colorDanger: '#FF5555',
-                    fontFamily: 'Ideal Sans, system-ui, sans-serif',
-                    spacingUnit: '2px',
-                    borderRadius: '4px',
-                },
-                rules: {
-                    '.Input': {
-                        borderColor: '#5f5f5f'
-                    },
-                    '.Input:focus': {
-                        borderColor: '#0073CC'
-                    }
-                }
-            };
-
-            const elements = stripe.elements({
-                mode: 'payment',
-                amount: parseInt(form.dataset.amount),
-                currency: 'jpy',
-                appearance,
-                paymentMethodTypes: ['card', 'customer_balance', 'konbini'],
-                customerBalance: {
-                    funding_type: 'bank_transfer',
-                    bank_transfer: {
-                        type: 'jp_bank_transfer'
-                    }
-                }
-            });
-
-            // デバッグ用のログ
-            console.log('Elements created:', elements);
-
-            const paymentElement = elements.create('payment', {
-                clientSecret: clientSecret,
-                fields: {
-                    billingDetails: {
-                        address: {
-                            country: 'never'
-                        }
-                    }
-                }
-            });
-
-            // マウント時のエラーをキャッチ
-            try {
-                paymentElement.mount("#payment-element");
-                console.log('Payment element mounted successfully');
-            } catch (mountError) {
-                console.error('Element mounting error:', mountError);
-                errorElement.textContent = `要素のマウントに失敗しました: ${mountError.message}`;
-            }
-
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                submitButton.disabled = true;
-                errorElement.textContent = '';
-
-                try {
-                    const submitResult = await elements.submit();
-                    const paymentMethod = submitResult.paymentMethodTypes;
-
-                    if (submitResult.error) {
-                        errorElement.textContent = submitResult.error.message;
-                        submitButton.disabled = false;
-                        return;
-                    }
-
-                    const {
-                        error,
-                        paymentIntent
-                    } = await stripe.confirmPayment({
-                        elements,
-                        clientSecret: clientSecret,
-                        redirect: 'if_required',
-                        confirmParams: {
-                            return_url: "{{ route('index') }}",
-                            payment_method_data: {
-                                billing_details: {
-                                    address: {
-                                        country: "JP"
-                                    }
-                                }
-                            }
-                        },
-                    });
-
-                    if (error) {
-                        if (error.type === 'card_error' || error.type === 'validation_error') {
-                            errorElement.textContent = error.message;
-                        } else {
-                            errorElement.textContent = '予期しないエラーが発生しました';
-                        }
-                        submitButton.disabled = false;
-                        return;
-                    }
-
-                    //銀行振込・コンビニ支払いでもこっちに飛んじゃう
-                    if (paymentIntent.payment_method_types.includes('card')) {
-                        const completeResponse = await fetch("{{ route('purchase.complete', ['item_id' => $item->id]) }}", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                            },
-                            body: JSON.stringify({
-                                payment_intent_id: paymentIntent.id,
-                                payment_method_type: paymentIntent.payment_method_types[0],
-                            }),
-                        });
-
-                        if (!completeResponse.ok) {
-                            const errorData = await completeResponse.json();
-                            throw new Error(errorData.error || '購入処理に失敗しました');
-                        }
-
-                        alert("購入が完了しました！");
-                        window.location.href = "{{ route('index') }}";
-                    }
-                } catch (error) {
-                    console.error("購入処理エラー:", error);
-                    errorElement.textContent = error.message;
-                    submitButton.disabled = false;
-                }
-            });
-
-        } catch (error) {
-            console.error("完全なエラー詳細:", error);
-            errorElement.textContent = `システムエラーが発生しました: ${error.message}`;
+    function submitForm() {
+        const paymentInput = document.getElementById('selected-payment-input').value;
+        if (!paymentInput) {
+            alert('支払い方法を選択してください。');
+            return false;
         }
+        document.getElementById('payment-form').submit();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updatePaymentMethod(document.querySelector('input[name="payment"]:checked'));
     });
 </script>
+
+@section('script')
 @endsection
