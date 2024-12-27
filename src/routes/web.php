@@ -12,14 +12,16 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PaymentInstructionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Livewire\ItemSellingForm;
 use App\Livewire\ProfileForm;
 use App\Models\PurchasedItem;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 
 //商品表示
 //indexページはキャッシュ不可
-Route::middleware('cache.headers:no_store;max_age=0;etag')->group(function (){
+Route::middleware('cache.headers:no_store;max_age=0;etag')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('index');
 });
 
@@ -34,41 +36,44 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
 
-//商品販売
-Route::get('/sell', [SellController::class, 'show'])->name('sell.show');
-Route::post('/sell', [ItemSellingForm::class, 'save'])->name('sell.create');
+    //商品販売
+    Route::get('/sell', [SellController::class, 'show'])->name('sell.show');
+    Route::post('/sell', [ItemSellingForm::class, 'save'])->name('sell.create');
 
-//商品購入
-Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-// Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
-Route::post('/purchase/{item_id}', [PurchaseController::class, 'secret'])->name('purchase.secret');
-Route::post('/purchase/{item_id}/complete', [PurchaseController::class, 'complete'])->name('purchase.complete');
+    //商品購入
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'payment'])->name('payment.create');
 
-//住所変更
-Route::get('/purchase/address/{item_id}', [UserProfileController::class, 'showAddress'])->name('address.show');
-Route::post('/purchase/address/{item_id}', [UserProfileController::class, 'createAddress'])->name('address.create');
+    //住所変更
+    Route::get('/purchase/address/{item_id}', [UserProfileController::class, 'showAddress'])->name('address.show');
+    Route::post('/purchase/address/{item_id}', [UserProfileController::class, 'createAddress'])->name('address.create');
 
-//マイページ
-Route::get('/mypage', [MyPageController::class, 'show'])->name('mypage.show');
+    //マイページ
+    Route::get('/mypage', [MyPageController::class, 'show'])->name('mypage.show');
 
-//プロフィール
-Route::get('/mypage/profile', [UserProfileController::class, 'showProfile'])->name('profile.show');
-Route::post('/mypage/profile', [ProfileForm::class, 'createProfile'])->name('profile.create');
+    //プロフィール
+    Route::get('/mypage/profile', [UserProfileController::class, 'showProfile'])->name('profile.show');
+    Route::post('/mypage/profile', [ProfileForm::class, 'createProfile'])->name('profile.create');
 
-//お気に入り
-Route::post('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
-Route::post('/unfavorite/{item_id}', [FavoriteController::class, 'delete'])->name('unfavorite');
+    //お気に入り
+    Route::post('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
+    Route::post('/unfavorite/{item_id}', [FavoriteController::class, 'destroy'])->name('unfavorite');
 
-//コメント
-Route::post('/comment', [CommentController::class, 'create'])->name('comment.create');
-Route::post('/comment/{comment_id}', [CommentController::class, 'delete'])->name('comment.delete');
+    //コメント
+    Route::post('/comment', [CommentController::class, 'create'])->name('comment.create');
+    Route::post('/comment/{comment_id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
-Route::get('/purchase/{item_id}/bank', [PaymentInstructionController::class, 'showBank'])->name('bank.show');
-Route::get('/purchase/{item_id}/konbini', [PaymentInstructionController::class, 'showKonbini'])->name('konbini.show');
+    //支払い手順表示
+    Route::get('/thanks', [PurchaseController::class, 'showThanks'])->name('thanks');
+    Route::get('/purchase/{item_id}/bank', [PaymentInstructionController::class, 'showBank'])->name('bank.show');
+    Route::get('/purchase/{item_id}/konbini', [PaymentInstructionController::class, 'showKonbini'])->name('konbini.show');
 });
+
+//Webhook
+Route::post('/webhook/stripe', [StripeWebhookController::class, 'handleWebhook'])->withoutMiddleware(ValidateCsrfToken::class);
 
 //管理者用
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
-    Route::post('/dashboard/{user_id}', [AdminController::class, 'destroy'])->name('user.delete');
+    Route::post('/dashboard/{user_id}', [AdminController::class, 'destroy'])->name('user.destroy');
 });
