@@ -7,6 +7,23 @@
 
 @section('main')
 <div class="main">
+    @if ($errors->any())
+    <div class="error">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </div>
+    @endif
+    @if (session()->has('error'))
+    <div class="error">
+        <li>{{ session('error') }}</li>
+    </div>
+    @endif
+    @if (session()->has('success'))
+    <div class="success">
+        <li>{{ session('success') }}</li>
+    </div>
+    @endif
     <div class="main__tab-wrapper">
         <input id="tab-search" type="radio" name="tab-button" {{ session('fs_msg') ? 'checked' : '' }}>
         <input id="tab-recommend" type="radio" name="tab-button" {{ session('fs_msg') ? '' : 'checked' }}>
