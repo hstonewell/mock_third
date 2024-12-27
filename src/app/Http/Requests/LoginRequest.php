@@ -32,7 +32,10 @@ class LoginRequest extends FortifyLoginRequest
                 'email:strict,dns,spoof',
                 'max:191',
             ],
-            'password' => 'required|string',
+            'password' => [
+                'required',
+                'string',
+                ],
         ];
     }
 }
