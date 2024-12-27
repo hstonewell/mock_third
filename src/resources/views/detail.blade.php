@@ -14,31 +14,31 @@
     </div>
     <div class="main__inner--content">
         <div class="item-header">
-            <h2>{{ $item->item_name }}</h2>
+            <h1>{{ $item->item_name }}</h1>
             <span>{{ $item->brand_name }}</span>
-            <h5>¥{{ number_format($item->price) }}</h5>
+            <h3>¥{{ number_format($item->price) }}</h3>
             <table class="item-header--reactions">
                 <tr class="item-header--reactions-icon">
                     <td>
-                    @if(Auth::check())
-                    @if(!$favorites)
-                    <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
-                        @csrf
-                        <button type="submit" @if($item->user_id == Auth::id()) disabled @endif>
-                            <i class="fa-regular fa-star fa-xl"></i>
-                        </button>
-                    </form>
-                    @else
-                    <form method="POST" action="{{ route('unfavorite', ['item_id' => $item->id]) }}">
-                        @csrf
-                        <button type="submit">
-                            <i class="fa-solid fa-star fa-xl" style="color:#FFE500"></i>
-                        </button>
-                    </form>
-                    @endif
-                    @else
-                    <i class="fa-regular fa-star fa-xl"></i>
-                    @endif
+                        @if(Auth::check())
+                        @if(!$favorites)
+                        <form method="POST" action="{{ route('favorite', ['item_id' => $item->id]) }}">
+                            @csrf
+                            <button type="submit" @if($item->user_id == Auth::id()) disabled @endif>
+                                <i class="fa-regular fa-star fa-xl"></i>
+                            </button>
+                        </form>
+                        @else
+                        <form method="POST" action="{{ route('unfavorite', ['item_id' => $item->id]) }}">
+                            @csrf
+                            <button type="submit">
+                                <i class="fa-solid fa-star fa-xl" style="color:#FFE500"></i>
+                            </button>
+                        </form>
+                        @endif
+                        @else
+                        <i class="fa-regular fa-star fa-xl" style="transform: scale(2)"></i>
+                        @endif
                     </td>
                     <td>
                         <a href="#comments"><i class="fa-regular fa-comment fa-xl"></i></a>
@@ -62,11 +62,11 @@
             @endif
         </div>
         <div class="item-description">
-            <h3>商品説明</h3>
+            <h2>商品説明</h2>
             <p>{{ $item->description }}</p>
         </div>
         <div class="item-information">
-            <h3>商品の情報</h3>
+            <h2>商品の情報</h2>
             <table class="item-information--table">
                 <tr>
                     <th>カテゴリー</th>
@@ -100,7 +100,7 @@
                     <p>{{ $comment->comment }}</p>
                     @auth
                     @if(Auth::id()==$comment->user_id || Auth::user()->hasRole('admin'))
-                    <form class="item-comment-content--delete" method="post" action="{{ route('comment.delete', ['comment_id' => $comment->id]) }}">
+                    <form class="item-comment-content--delete" method="post" action="{{ route('comment.destroy', ['comment_id' => $comment->id]) }}">
                         @csrf
                         <button type="submit"><i class="fa-solid fa-trash-can" style="color:#d9d9d9"></i>削除</button>
                     </form>

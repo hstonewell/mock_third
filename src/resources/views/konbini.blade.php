@@ -7,7 +7,7 @@
 @section('main')
 <div class="main__inner">
     <div class="main__header">
-        <h2>購入完了</h2>
+        <h1>購入完了</h1>
     </div>
     <div class="item">
         <div class="item__image">
@@ -15,12 +15,12 @@
         </div>
         <div class="item__box">
             <div class="detail">
-                <h3>{{ $item->item_name }}</h3>
+                <h2>{{ $item->item_name }}</h2>
                 <p>¥{{ number_format($item->price) }}</p>
             </div>
             <div class="instruction">
                 <div class="instruction__header">
-                    <h3>コンビニ支払い手順</h3>
+                    <h2>コンビニ支払い手順</h2>
                 </div>
                 <div class="instruction__content">
                     <ol>

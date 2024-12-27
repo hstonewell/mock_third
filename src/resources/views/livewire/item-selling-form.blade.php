@@ -18,19 +18,19 @@
         </p>
         @enderror
         <div class="edit-form__unit">
-            <h3 class="sell-item__form--title">商品の詳細</h3>
+            <h2 class="sell-item__form--title">商品の詳細</h2>
             <label for="brandName" class="edit-form__input--label">ブランド名</label>
             <input type="text" name="brandName" wire:model="brandName" class="edit-form__input--input" />
             <label for="categoryId" class="edit-form__input--label">カテゴリー</label>
             <select name="categoryId" class="edit-form__input--select" wire:model="categoryId">
                 <option value="">選択してください</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                        @if ($category->children->isNotEmpty())
-                        @foreach ($category->children as $child)
-                        <option value="{{ $child->id }}">-- {{ $child->category_name }}</option>
-                        @endforeach
-                        @endif
+                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                @if ($category->children->isNotEmpty())
+                @foreach ($category->children as $child)
+                <option value="{{ $child->id }}">-- {{ $child->category_name }}</option>
+                @endforeach
+                @endif
                 @endforeach
             </select>
             <label for="conditionId" class="edit-form__input--label">商品の状態</label>
@@ -42,7 +42,7 @@
             </select>
         </div>
         <div class="edit-form__unit">
-            <h3 class="sell-item__form--title">商品名と説明</h3>
+            <h2 class="sell-item__form--title">商品名と説明</h2>
             <label for="item_name" class="edit-form__input--label">商品名</label>
             <input type="text" wire:model="item_name" name="item_name" class="edit-form__input--input" />
             @error('item_name')
@@ -59,7 +59,7 @@
             @enderror
         </div>
         <div class="edit-form__unit">
-            <h3 class="sell-item__form--title">販売価格</h3>
+            <h2 class="sell-item__form--title">販売価格</h2>
             <label for="price" class="edit-form__input--label">販売価格</label>
             <div class="edit-form__input--input" id="price">
                 <span class="edit-form__input--prefix">&yen;</span>

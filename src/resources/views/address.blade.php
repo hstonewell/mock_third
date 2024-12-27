@@ -7,7 +7,7 @@
 @section('main')
 <div class="main__inner">
     <div class="edit-form__header">
-        <h2>住所の変更</h2>
+        <h1>住所の変更</h1>
     </div>
     <div class="edit-form">
         <form method="post" action="{{ route('address.create', ['item_id' => $item->id]) }}" class="edit-form__input">

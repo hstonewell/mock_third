@@ -8,7 +8,7 @@
 @section('main')
 <div class="main__inner">
     <div class="edit-form__header">
-        <h2>商品の出品</h2>
+        <h1>商品の出品</h1>
     </div>
     <div class="edit-form">
         <livewire:item-selling-form>

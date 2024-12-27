@@ -11,7 +11,7 @@
 @section('main')
 <div class="register-form">
     <div class="register-form__header">
-        <h2 class="register-form__header--title">会員登録</h2>
+        <h1 class="register-form__header--title">会員登録</h1>
     </div>
     <div class="register-form__content">
         <form class="register" method="POST" action="/register">

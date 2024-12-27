@@ -16,7 +16,7 @@
             @endif
         </div>
         <div class="main__profile--name">
-            <h2>{{ $userProfile->name ?? 'ユーザー名未設定' }}</h2>
+            <h1>{{ $userProfile->name ?? 'ユーザー名未設定' }}</h1>
         </div>
         <div class="main__profile--edit">
             <a href="{{ route('profile.show') }}" class="edit-button">プロフィールを編集</a>

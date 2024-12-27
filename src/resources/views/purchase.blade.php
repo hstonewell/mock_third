@@ -12,13 +12,13 @@
                 <img src="{{ asset($item->image) }}" alt="{{ $item->item_name }}">
             </div>
             <div class="item-summary--caption">
-                <h2>{{ $item->item_name }}</h2>
-                <h5>¥{{ number_format($item->price) }}</h5>
+                <h1>{{ $item->item_name }}</h1>
+                <h3>¥{{ number_format($item->price) }}</h3>
             </div>
         </div>
         <div class="item-summary--option">
             <div class="item-summary--option--header">
-                <h3>支払い方法</h3>
+                <h2>支払い方法</h2>
             </div>
             <div class="item-summary--option--detail">
                 <!-- <form id="payment-form" data-amount="{{ $item->price }}">
@@ -50,7 +50,7 @@
         </div>
         <div class="item-summary--option">
             <div class="item-summary--option--header">
-                <h3>配送先</h3>
+                <h2>配送先</h2>
                 <a href="{{ route('address.show', ['item_id' => $item->id]) }}">変更する</a>
             </div>
             <div class="item-summary--option--detail">
