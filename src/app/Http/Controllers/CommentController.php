@@ -9,8 +9,8 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function create(CommentRequest $request) {
-
+    public function create(CommentRequest $request)
+    {
         $comment = $request->only('item_id', 'comment');
         $comment['user_id'] = Auth::id();
 
@@ -19,10 +19,10 @@ class CommentController extends Controller
         return redirect()->route('item.detail', ['item_id' => $request->input('item_id')]);
     }
 
-    public function delete ($comment_id)
+    public function destroy($comment_id)
     {
         $comment = Comment::where('id', $comment_id)
-        ->first();
+            ->first();
 
         $itemId = $comment->item_id;
 

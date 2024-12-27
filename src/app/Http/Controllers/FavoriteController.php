@@ -16,7 +16,8 @@ class FavoriteController extends Controller
         return redirect()->route('item.detail', ['item_id' => $item_id]);
     }
 
-    public function delete($item_id) {
+    public function destroy($item_id)
+    {
         Favorite::where('user_id', Auth::id())->where('item_id', $item_id)->delete();
 
         return redirect()->route('item.detail', ['item_id' => $item_id]);
