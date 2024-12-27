@@ -1,0 +1,161 @@
+.main__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    margin: 5rem auto;
+}
+
+.main__header {
+    width: 100%;
+    margin: 5rem;
+}
+
+.main__header h1 {
+    font-size: 4.8em;
+    font-weight: bold;
+}
+
+.main__header p {
+    font-size: 2.4em;
+    margin: 2rem 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5em;
+}
+
+.item__image {
+    width: 40%;
+}
+
+.item__image img {
+    width: 100%;
+}
+
+/* 支払い手順 */
+.item__box {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+
+.detail {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.detail p{
+    font-size: 2.4em;
+}
+
+.detail ul{
+    font-size: 2.4em;
+    line-height: 2em;
+    list-style: none;
+}
+
+.instruction {
+    text-align: left;
+}
+
+.detail h2,
+.instruction__header h2 {
+    font-size: 2.4em;
+    line-height: 2em;
+}
+
+.instruction__content {
+    font-size: 2.4em;
+    line-height: 1.5em;
+}
+
+.instruction__content ul {
+    background-color: #eee;
+    padding: 2rem;
+    margin: 2rem 0;
+    list-style: none;
+}
+
+.instruction__content ol {
+    margin-bottom: 4rem;
+    list-style-position: inside;
+}
+
+.edit-button {
+    text-decoration: none;
+    height: auto;
+    padding: 1rem;
+}
+
+
+/* タブ */
+.store-tab__wrapper input{
+    display: none;
+}
+
+.tab-labels {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 100%;
+    height: 3rem;
+    border-bottom: 1px solid #5F5F5F;
+}
+
+.store-label {
+    display: inline-block;
+    text-align: left;
+    color: #5F5F5F;
+    font-weight: bold;
+    cursor: pointer;
+    transition: ease 0.2s opacity;
+}
+
+.store-label:hover {
+    opacity: 0.5;
+}
+
+.tab-content {
+    background: #fff;
+}
+
+.tab-content__panel {
+    display: none;
+    width: 100%;
+    text-align: center;
+}
+
+#tab-familymart:checked~.tab-labels .label-familymart {
+    color: #FF5555;
+}
+
+#tab-familymart:checked~.tab-content #familymart {
+    display: block;
+}
+
+#tab-lawson:checked~.tab-labels .label-lawson {
+    color: #FF5555;
+}
+
+#tab-lawson:checked~.tab-content #lawson {
+    display: block;
+}
+
+#tab-ministop:checked~.tab-labels .label-ministop {
+    color: #FF5555;
+}
+
+#tab-ministop:checked~.tab-content #ministop {
+    display: block;
+}
+
+#tab-seicomart:checked~.tab-labels .label-seicomart {
+    color: #FF5555;
+}
+
+#tab-seicomart:checked~.tab-content #seicomart {
+    display: block;
+}
