@@ -120,7 +120,7 @@ return [
     'starts_with'          => ':attributeには、:valuesのどれかで始まる値を指定してください。',
     'string'               => ':attributeは文字列を指定してください。',
     'timezone'             => ':attributeには、有効なゾーンを指定してください。',
-    'unique'               => 'この:attributeは既に登録されています',
+    'unique'               => 'この:attributeは登録できません。',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeに正しい形式を指定してください。',
     'uuid'                 => ':attributeに有効なUUIDを指定してください。',
@@ -186,7 +186,9 @@ return [
         'comment' => 'コメント',
         'item_name' => '商品名',
         'price' => '金額',
-        'itemImage' => '商品画像'
+        'itemImage' => '商品画像',
+        'subject' => '件名',
+        'content' => '内容',
     ],
 
 ];
