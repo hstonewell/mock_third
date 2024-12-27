@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('buyer_id')->constrained('users');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->string('payment_method');
+            $table->integer('status')->comment('0:購入済 1:支払い待ち 2:キャンセル済');
             $table->timestamps();
         });
     }
