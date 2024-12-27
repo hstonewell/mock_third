@@ -14,6 +14,8 @@ class PurchasedItem extends Model
     protected $fillable = [
         'buyer_id',
         'item_id',
+        'payment_method',
+        'status'
     ];
 
     //リレーション
@@ -26,11 +28,32 @@ class PurchasedItem extends Model
         return $this->belongsTo(Item::class, 'item_id');
     }
 
-    public static function purchase($itemId)
+    public static function purchase($itemId, $selectedPayment)
     {
         $param = [
             'buyer_id' => Auth::id(),
             'item_id' => $itemId,
+            'payment_method' => $selectedPayment,
+            'status' => 0, // 0: 購入完了
+        ];
+
+        $purchase = PurchasedItem::create($param);
+
+        $item = Item::findOrFail($itemId);
+        $item->sold_out = true;
+        $item->save();
+
+        return $purchase;
+    }
+
+
+    public static function purchaseProcessing($itemId, $selectedPayment)
+    {
+        $param = [
+            'buyer_id' => Auth::id(),
+            'item_id' => $itemId,
+            'payment_method' => $selectedPayment,
+            'status' => 1,
         ];
 
         $purchase = PurchasedItem::create($param);
@@ -47,6 +70,6 @@ class PurchasedItem extends Model
     {
         $userId = $userId ?? Auth::id();
 
-        return $query->where('buyer_id', $userId)->orderBy('created_at', 'desc');
+        return $query->where('buyer_id', $userId)->where('status', '!=', '2')->orderBy('created_at', 'desc');
     }
 }
