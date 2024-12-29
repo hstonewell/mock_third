@@ -8,4 +8,4 @@
 COACHTECHフリマ
 東京都xx区xx123-4-56
 support@ctfreamarket.com
-https://xxxx.
+https://xxxx.ctfrea.com
