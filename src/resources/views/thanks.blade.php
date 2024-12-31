@@ -21,7 +21,6 @@
                     <li>ブランド名: {{ $item->brand_name }}</li>
                     <li>金額: ¥{{ number_format($item->price) }}</li>
                     <li>購入方法: クレジットカード</li>
-                    <li>{{ $item->description }}</li>
                 </ul>
             </div>
         </div>
