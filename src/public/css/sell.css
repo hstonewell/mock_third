@@ -70,3 +70,9 @@
 .edit-form__input--prefix {
     font-weight: 700;
 }
+
+@media (max-width: 768px) {
+    .edit-button#item-image {
+        width: 35%;
+    }
+}

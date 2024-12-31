@@ -1,7 +1,7 @@
 .main__inner {
     width: 50%;
     margin: 0 auto;
-    padding: 6rem;
+    padding: 6rem 0;
     text-align: center;
 }
 
@@ -81,4 +81,21 @@
 
 .edit-form__input--textarea {
     white-space: pre-wrap;
+}
+
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .main__inner {
+        width: 70%;
+    }
+}
+
+@media (max-width: 375px) {
+    .main__inner {
+        width: 90%;
+    }
+    .edit-form__image {
+        flex-direction: column;
+    }
 }

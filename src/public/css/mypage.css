@@ -8,12 +8,16 @@
 }
 
 .main__profile--img {
-    width: 20%;
+    width: 15rem;
+    height: auto;
+}
+
+.profile-thumbnail {
+    width: 100%;
 }
 
 .main__profile--name {
     width: 40%;
-    text-align: left;
     font-size: 3.6em;
 }
 
@@ -92,4 +96,37 @@ input[type="radio"] {
 
 #tab-purchased:checked~.main__tab-content #tab-panel--purchased {
     display: block;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .main__profile {
+        width: 80%;
+    }
+    .main__profile--img {
+        width: 20%;
+    }
+    .main__profile--edit {
+        width: 40%;
+    }
+}
+
+@media (max-width: 375px) {
+    .main__profile {
+        width: 90%;
+        flex-direction: column;
+    }
+    .main__tab-labels__inner {
+        width: auto;
+    }
+    .main__profile--name {
+        width: 100%;
+        margin: 2rem 0;
+    }
+    .main__profile--img {
+        width: 40%;
+    }
+    .main__profile--edit {
+        width: 60%;
+    }
 }

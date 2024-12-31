@@ -159,3 +159,19 @@
 #tab-seicomart:checked~.tab-content #seicomart {
     display: block;
 }
+
+@media (max-width: 768px) {
+    .main__inner {
+        width: 90vw;
+    }
+}
+
+@media (max-width: 375px) {
+    .item {
+        flex-direction: column;
+    }
+    .item__image,
+    .item__box {
+        width: 100%;
+    }
+}

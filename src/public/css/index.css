@@ -72,3 +72,15 @@ input[type="radio"] {
 #tab-mylist:checked~.main__tab-content #tab-panel--mylist {
     display: block;
 }
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 375px) {
+    .main__tab-label {
+        padding-right: 1rem;
+        font-size: 2em;
+    }
+}

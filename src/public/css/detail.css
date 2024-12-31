@@ -249,3 +249,33 @@
     cursor: pointer;
     background-color: transparent;
 }
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .main__inner {
+        width: 85vw;
+    }
+    .main__inner--image {
+        width: 35%;
+    }
+    .main__inner--content {
+        width: 55%;
+    }
+    .item-information--table th,
+    .item-category p {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 375px) {
+    .main__inner {
+        flex-direction: column;
+    }
+    .main__inner--image {
+        width: 100%;
+        margin-bottom: 3rem;
+    }
+    .main__inner--content {
+        width: 100%;
+    }
+}

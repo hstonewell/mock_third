@@ -40,11 +40,16 @@
     text-align: center;
 }
 
+.mail {
+    border-left: none;
+}
+
 .users-table td {
     background-color: #fff;
     text-align: left;
 }
 
+.users-table th:nth-child(3),
 .users-table td:nth-child(3){
     border-right: none;
 }
@@ -139,4 +144,33 @@
 
 #send-email.submit-button {
     margin-top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        width: 90%;
+    }
+    .users-table th, p,
+    .submit-button {
+        font-size: 2rem;
+    }
+    .mail-form__inner {
+        width: 70%;
+    }
+}
+
+@media (max-width: 375px) {
+    .dashboard {
+        width: 95%;
+    }
+    .users-table th:nth-child(3),
+    .users-table td:nth-child(3) {
+        display: none;
+    }
+    .users-table th, td {
+        border: none;
+    }
+    .mail-form__inner {
+        width: 90%;
+    }
 }

@@ -75,3 +75,23 @@
     font-size: 2.4em;
     font-weight: bold;
 }
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .tab-panel__item-thumbnail {
+        width: 23%;
+    }
+    .tab-panel__spacer {
+        width: 23%;
+    }
+}
+
+@media (max-width: 375px) {
+    .tab-panel__item-thumbnail {
+        width: 31%;
+    }
+
+    .tab-panel__spacer {
+        width: 31%;
+    }
+}

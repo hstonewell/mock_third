@@ -20,22 +20,23 @@
 @endsection
 
 @section('main')
+@if(session('success'))
+<div class="success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+<div class="error">{{ session('error') }}</div>
+@endif
 <div class="dashboard">
-    @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
     <div class="users-table__header">
-        <h2>ユーザ一覧</h2>
+        <h1>ユーザ一覧</h1>
     </div>
     <div class="users-table">
         <table>
             <tr>
                 <th>ID</th>
                 <th>ユーザ名</th>
-                <th colspan="2">メールアドレス</th>
+                <th>メールアドレス</th>
+                <th class="mail"></th>
                 <th>削除</th>
             </tr>
             @foreach($users as $user)
@@ -53,7 +54,7 @@
                     <livewire:send-email :email="$user->email" :userName="$user->userProfile->name" />
                 </td>
                 <td>
-                    <form method="POST" action="{{ route('user.delete', ['user_id' => $user->id]) }}">
+                    <form method="POST" action="{{ route('user.destroy', ['user_id' => $user->id]) }}">
                         @csrf
                         <button class="submit-button">削除</button>
                     </form>

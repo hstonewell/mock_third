@@ -59,8 +59,15 @@
 }
 
 
-@media screen and (max-width: 768px) {
+/* レスポンシブ */
+@media (max-width: 768px) {
     .register-form__content {
         width: 70vw;
+    }
+}
+
+@media (max-width: 375px) {
+    .register-form__content {
+        width: 90vw;
     }
 }
