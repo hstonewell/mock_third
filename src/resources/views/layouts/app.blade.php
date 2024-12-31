@@ -19,7 +19,7 @@
             <div class="header__inner--logo">
                 <a href="{{ route('index') }}"><img src="{{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
-            @elseif (Request::is('/', 'item/*', 'purchase/*', 'mypage', 'mypage/profile', 'search') && !Request::is('purchase/address/*') && !session('is_newly_registered'))
+            @elseif (Request::is('/', 'item/*', 'purchase/*', 'mypage', 'mypage/profile', 'search', 'thanks') && !Request::is('purchase/address/*') && !session('is_newly_registered'))
             <div class="header__inner--logo">
                 <a href="{{ route('index') }}"><img src=" {{ asset('img/logo.svg') }}" alt="COACHTECHフリマ"></a>
             </div>
@@ -46,6 +46,7 @@
                 @endif
                 <a href="/sell" class="sell-button">出品</a>
             </div>
+            <livewire:humburgerMenu />
             @endif
             @yield('header')
         </div>
