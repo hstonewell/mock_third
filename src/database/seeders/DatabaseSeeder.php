@@ -21,13 +21,6 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::create(['name' => 'admin']);
         $registerPermission = Permission::create(['name' => 'delete account']);
 
-        // 管理者を追加
-        $admin = User::create([
-            //必要に応じて変更してください。
-            'email' => 'adminuser@testuser.com',
-            'password' => bcrypt(env('ADMIN_PASSWORD')),
-        ]);
-
         $this->call([
             ConditionsTableSeeder::class,
             CategoriesTableSeeder::class,
@@ -35,6 +28,14 @@ class DatabaseSeeder extends Seeder
             ItemsTableSeeder::class,
             CommentTableSeeder::class,
             FavoriteTableSeeder::class,
+        ]);
+
+        // 管理者を追加
+        $admin = User::create([
+            //必要に応じて変更してください。
+            'id' => 0,
+            'email' => 'adminuser@testuser.com',
+            'password' => bcrypt(env('ADMIN_PASSWORD')),
         ]);
 
         $adminRole->givePermissionTo($registerPermission);
