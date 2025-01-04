@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\PurchasedItem;
 use App\Models\Item;
+use Illuminate\Support\Facades\Log;
 
 class StripeWebhookController extends Controller
 {
@@ -28,6 +29,7 @@ class StripeWebhookController extends Controller
                 case 'payment_intent.succeeded':
                     $paymentIntent = $event->data->object;
                     $this->handlePaymentSuccess($paymentIntent);
+                    Log::info('Payment Intent Succeeded', ['intent' => $paymentIntent]);
                     break;
                 case 'payment_method.canceled':
                     $paymentIntent = $event->data->object;
@@ -38,11 +40,13 @@ class StripeWebhookController extends Controller
             }
 
         } catch (\UnexpectedValueException $e) {
+            Log::error('Invalid payload', ['error' => $e->getMessage()]);
             http_response_code(400);
             exit();
         }
 
         http_response_code(200);
+        Log::info('Stripe Webhook Received', ['event' => $event]);
     }
 
     protected function handlePaymentSuccess($paymentIntent)
@@ -55,10 +59,14 @@ class StripeWebhookController extends Controller
         ->where('status', 1)
         ->first();
 
-        if($purchasedItem) {
-            $purchasedItem->status = 0;
-            $purchasedItem->save();
+        if (!$purchasedItem) {
+            Log::warning("PurchasedItem not found for item_id: $itemId and buyer_id: $buyerId");
+            return;
         }
+
+        $purchasedItem->status = 0;
+        $purchasedItem->save();
+
     }
 
     protected function handlePaymentCanceled($paymentIntent)

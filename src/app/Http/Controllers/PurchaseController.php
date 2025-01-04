@@ -21,10 +21,11 @@ class PurchaseController extends Controller
 
         $hasUserAddress = $userProfile && $userProfile->address && $userProfile->postcode;
 
-        return view ('purchase', compact('item', 'userProfile', 'hasUserAddress'));
+        return view('purchase', compact('item', 'userProfile', 'hasUserAddress'));
     }
 
-    public function payment(Request $request, $item_id) {
+    public function payment(Request $request, $item_id)
+    {
 
         $selectedPayment = $request->input('payment_method');
         $name = $request->input('name');
@@ -68,21 +69,17 @@ class PurchaseController extends Controller
                         ],
                     ],
                 ],
-                'payment_intent_data' => [
-                    'metadata' => [
-                        'item_id' => $item_id,
-                        'buyer_id' => Auth::id(),
-                    ],
+                'metadata' => [
+                    'item_id' => $item_id,
+                    'buyer_id' => Auth::id(),
                 ],
-                'success_url' => url('/thanks?item_id=' . $item_id),
-                'cancel_url' => url('/'),
+                'success_url' => url('/thanks?session_id={CHECKOUT_SESSION_ID}'),
+                'cancel_url' => url('/item/' . $item_id),
             ]);
-
-            PurchasedItem::purchase($item_id, $selectedPayment);
 
             return redirect($checkout_session->url);
 
-        //銀行振込
+            //銀行振込
         } else if ($paymentMethod == 'customer_balance') {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $price,
@@ -125,7 +122,7 @@ class PurchaseController extends Controller
             ]);
             return redirect()->route('bank.show', ['item_id' => $item_id]);
 
-        //コンビニ支払
+            //コンビニ支払
         } else if ($paymentMethod == 'konbini') {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $price,
@@ -162,11 +159,33 @@ class PurchaseController extends Controller
         }
     }
 
-    public function showThanks(Request $request) {
+    public function showThanks(Request $request)
+    {
+        // リクエストから session_id を取得
+        $sessionId = $request->query('session_id');
 
-        $itemId = $request->query('item_id');
-        $item = Item::where('id', $itemId)->first();
+        try {
+            // Stripe セッション情報を取得
+            \Stripe\Stripe::setApiKey(config('stripe.secret_key'));
+            $checkoutSession = \Stripe\Checkout\Session::retrieve($sessionId);
+            $itemId = $checkoutSession->metadata->item_id;
 
-        return view('thanks', compact('item'));
+            if (!$itemId) {
+                return redirect('/')->with('error', '購入情報が見つかりません。');
+            }
+
+            // Item 情報を取得
+            $item = Item::find($itemId);
+
+            if (!$item) {
+                return redirect('/')->with('error', 'アイテムが見つかりません。');
+            }
+
+            PurchasedItem::purchase($itemId, 'クレジットカード');
+            return view('thanks', compact('item'));
+        } catch (\Exception $e) {
+            // エラー処理
+            return redirect('/')->with('error', '購入情報の取得中にエラーが発生しました。');
+        }
     }
 }
