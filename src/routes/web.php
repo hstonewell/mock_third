@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
     //プロフィール
     Route::get('/mypage/profile', [UserProfileController::class, 'showProfile'])->name('profile.show');
-    Route::post('/mypage/profile', [ProfileForm::class, 'createProfile'])->name('profile.create');
+    Route::post('/mypage/profile', [ProfileForm::class, 'save'])->name('profile.create');
 
     //お気に入り
     Route::post('/favorite/{item_id}', [FavoriteController::class, 'create'])->name('favorite');
