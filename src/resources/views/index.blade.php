@@ -45,6 +45,7 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id' => $searchResult->id]) }}">
                             <img src="{{ asset($searchResult->image) }}" alt="{{ $searchResult->item_name }}">
+                            <p class="price-tag">¥{{ number_format($searchResult->price) }}</p>
                         </a>
                     </div>
                     @empty
@@ -65,6 +66,7 @@
                     <div class="tab-panel__item-thumbnail">
                         <a href="{{ route('item.detail', ['item_id'=>$recommendItem->id]) }}">
                             <img src="{{ asset($recommendItem->image) }}" alt="{{ $recommendItem->item_name }}">
+                            <p class="price-tag">¥{{ number_format($recommendItem->price) }}</p>
                         </a>
                     </div>
                     @endforeach
@@ -83,6 +85,7 @@
                             @if ($favoriteItem->item->sold_out == true)
                             <p class="soldout-tag">売り切れ</p>
                             @endif
+                            <p class="price-tag">¥{{ number_format($favoriteItem->item->price) }}</p>
                         </a>
                     </div>
                     @endforeach

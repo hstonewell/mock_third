@@ -41,6 +41,7 @@
                             @if (optional($sellingItem->item)->sold_out)
                             <p class="soldout-tag">売り切れ</p>
                             @endif
+                            <p class="price-tag">¥{{ number_format($sellingItem->price) }}</p>
                         </a>
                     </div>
                     @endforeach
@@ -58,6 +59,7 @@
                             @if ($purchasedItem->item->sold_out == true)
                             <p class="soldout-tag">売り切れ</p>
                             @endif
+                            <p class="price-tag">¥{{ number_format($purchasedItem->item->price) }}</p>
                         </a>
                     </div>
                     @endforeach
