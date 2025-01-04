@@ -85,6 +85,6 @@ class ItemSellingForm extends Component
 
         Item::create($data);
 
-        return redirect()->route('index');
+        return redirect(route('index'))->with('success', '商品が出品されました');
     }
 }
