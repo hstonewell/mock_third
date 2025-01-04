@@ -21,13 +21,6 @@
                 <h2>支払い方法</h2>
             </div>
             <div class="item-summary--option--detail">
-                <!-- <form id="payment-form" data-amount="{{ $item->price }}">
-                    @csrf
-                    <div id="payment-element">
-                    </div>
-                    <div id="error-message">
-                    </div>
-                </form> -->
                 <form id="payment-form" method="post" action="{{ route('payment.create', ['item_id' => $item->id]) }}">
                     @csrf
                     <label>
