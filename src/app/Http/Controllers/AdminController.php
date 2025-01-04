@@ -20,6 +20,6 @@ class AdminController extends Controller
         $user = User::findOrFail($user_id);
         $user->delete();
 
-        return redirect()->back()->with('success', 'アカウントを削除しました');
+        return redirect()->route('admin.index')->with('success', 'アカウントを削除しました');
     }
 }
