@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class CommentController extends Controller
 {
+    use HasRoles;
+
     public function create(CommentRequest $request)
     {
         $comment = $request->only('item_id', 'comment');
@@ -24,10 +28,13 @@ class CommentController extends Controller
         $comment = Comment::where('id', $comment_id)
             ->first();
 
-        $itemId = $comment->item_id;
+        if (Auth::user()->hasRole('admin') || $comment->user_id === Auth::id()) {
+            $comment->delete();
+            return redirect()->route('item.detail', ['item_id' => $comment->item_id])
+                ->with('success', 'コメントを削除しました。');
+        }
 
-        $comment->delete();
-
-        return redirect()->route('item.detail', ['item_id' => $itemId]);
+        return redirect()->route('item.detail', ['item_id' => $comment->item_id])
+            ->with('error', 'このコメントを削除する権限がありません。');
     }
 }
