@@ -15,9 +15,19 @@
                 <input class="mail-form__email" name="to" value="{{ $email }}" readonly>
                 <label for="subject" class="edit-form__input--label">件名</label>
                 <input type="text" name="subject" wire:model="subject" class="edit-form__input--input" />
+                @error('subject')
+                <p class="form--error-message">
+                    {{ $message }}
+                </p>
+                @enderror
                 <label for="content" class="edit-form__input--label">内容</label>
                 <textarea wire:model="content" name="content" rows="5" class="edit-form__input--textarea"></textarea>
-                <button type="submit" class="submit-button">送信する</button>
+                @error('content')
+                <p class="form--error-message">
+                    {{ $message }}
+                </p>
+                @enderror
+                <button type="submit" class="submit-button" id="send-email">送信する</button>
             </form>
         </div>
     </div>

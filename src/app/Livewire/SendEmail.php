@@ -13,6 +13,8 @@ class SendEmail extends Component
     public $email = '';
     public $subject = '';
     public $content = '';
+    public $successMessage;
+    public $errorMessage;
 
     public function mount($email = '', $userName = '')
     {
@@ -39,7 +41,7 @@ class SendEmail extends Component
     public function send()
     {
         $this->validate([
-            'subject' => 'required|max:255',
+            'subject' => 'required|max:191',
             'content' => 'required'
         ]);
 
@@ -49,13 +51,17 @@ class SendEmail extends Component
                 $this->content,
                 $this->userName
             ));
-
-            // 成功時の処理
-            session()->flash('success', 'メールを送信しました');
             $this->closeModal();
+            return redirect(route('admin.index'))->with('success', 'メールを送信しました');
         } catch (\Exception $e) {
-            // エラー時の処理
-            session()->flash('error', 'メール送信に失敗しました');
+            $this->closeModal();
+            return redirect(route('admin.index'))->with('error', 'メール送信に失敗しました');
         }
+    }
+
+    public function resetFields()
+    {
+        $this->subject = '';
+        $this->content = '';
     }
 }
