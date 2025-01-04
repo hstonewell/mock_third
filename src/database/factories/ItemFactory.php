@@ -23,8 +23,8 @@ class ItemFactory extends Factory
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'brand_name' => fake()->company(),
-            'category_id' => Category::inRandomOrder()->first()->id,
-            'condition_id' => Condition::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()?->id,
+            'condition_id' => Condition::inRandomOrder()->first()?->id,
             'item_name' => 'サンプル商品名',
             'price' => fake()->numberBetween(1000, 100000),
             'description' => fake()->realText(),
