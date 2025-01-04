@@ -5,6 +5,23 @@
 @endsection
 
 @section('main')
+@if ($errors->any())
+<div class="error">
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+</div>
+@endif
+@if (session()->has('error'))
+<div class="error">
+    <li>{{ session('error') }}</li>
+</div>
+@endif
+@if (session()->has('success'))
+<div class="success">
+    <li>{{ session('success') }}</li>
+</div>
+@endif
 <div class="main__inner">
     <div class="main__inner--image">
         <img src="{{ asset($item->image) }}">
