@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             //必要に応じて変更してください。
             'id' => 0,
             'email' => 'adminuser@testuser.com',
-            'password' => bcrypt(env('ADMIN_PASSWORD')),
+            'password' => bcrypt('Your-Pass1234'),
         ]);
 
         $adminRole->givePermissionTo($registerPermission);
