@@ -16,18 +16,6 @@
 - コメント削除：一般ユーザのコメント削除
 - メール送信：一般ユーザへメールを送信
 
-## 使用技術
-- HTML/CSS
-- PHP8.2
-- Laravel11.33.2
-- MySQL8.3.0
-
-## テーブル設計
-![alt](table.jpg)
-
-## ER図
-![alt](er.png)
-
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:hstonewell/mock_third.git`
@@ -128,7 +116,7 @@ php artisan migrate --env=testing
 ```
 
 ## Stripeを使用した決済のテスト方法
-###　カード決済
+###　 カード決済
 - テスト用のカード番号を使用します (例: 4242 4242 4242 4242)。
 - 有効な将来の日付を使用します (例: 12/34 など)。
 - 任意の3桁のセキュリティーコードを使用します。
@@ -147,6 +135,18 @@ php artisan migrate --env=testing
 ### デフォルト値
 - メールアドレス：adminuser@testuser.com
 - パスワード：Your-Pass1234
+
+## 使用技術
+- HTML/CSS
+- PHP8.2
+- Laravel11.33.2
+- MySQL8.3.0
+
+## テーブル設計
+![alt](table.jpg)
+
+## ER図
+![alt](er.png)
 
 ## URL
 - 開発環境：http://localhost/
