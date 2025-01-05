@@ -1,4 +1,5 @@
 # COACHTECHフリマ
+![alt](coachtechfreama.jpg)
 
 ## 作成した目的
 シンプルなフリーマーケットアプリ。勉強中のフレームワーク（Laravel）のアウトプットです。
@@ -139,9 +140,12 @@ php artisan migrate --env=testing
 
 ## 使用技術
 - HTML/CSS
-- PHP8.2
-- Laravel11.33.2
-- MySQL8.3.0
+- PHP 8.2
+- Laravel 11.33.2
+    - Livewire 3.5.12
+    - Fortify 1.24.5
+- MySQL 8.3.0
+- Stripe 16.3.0
 
 ## テーブル設計
 ![alt](table.jpg)
