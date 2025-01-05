@@ -72,7 +72,7 @@
             </div>
             <div class="item-purchase--button">
                 @if($item->sold_out == false)
-                <button id="submit" class="submit-button" onclick="submitForm()" aria-controls="payment-form" {{ !$hasUserAddress ? 'disabled' : '' }}>購入する</button>
+                <button id="submit" class="submit-button" onclick="submitForm()" aria-controls="payment-form" {{ !$hasUserAddress || $item->user_id === Auth::id() ? 'disabled' : '' }}>購入する</button>
                 @else
                 <button id="submit" class="submit-button" disabled>売り切れ</button>
                 @endif
