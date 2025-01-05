@@ -1,10 +1,7 @@
 # COACHTECHフリマ
-フリーマーケットアプリです。
-
-![alt](rese.png)
 
 ## 作成した目的
-勉強中のフレームワーク（Laravel）のアウトプット
+シンプルなフリーマーケットアプリ。勉強中のフレームワーク（Laravel）のアウトプットです。
 
 ## 機能一覧
 ### 一般ユーザ
@@ -17,6 +14,7 @@
 ### 管理ユーザ
 - ユーザの削除：一般ユーザの削除
 - コメント削除：一般ユーザのコメント削除
+- メール送信：一般ユーザへメールを送信
 
 ## 使用技術
 - HTML/CSS
@@ -25,14 +23,14 @@
 - MySQL8.3.0
 
 ## テーブル設計
-![alt](table.png)
+![alt](table.jpg)
 
 ## ER図
 ![alt](er.png)
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:hstonewell/mock_second.git`
+1. `git clone git@github.com:hstonewell/mock_third.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -48,17 +46,7 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
-
-STRIPE_KEY=your_stripe_key
-STRIPE_SECRET=your_stripe_secret_key
-CASHIER_CURRENCY=jpy
-CASHIER_CURRENCY_LOCALE=ja_JP
-CASHIER_LOGGER=daily
-
-ADMIN_PASSWORD=Your-Pass1234
 ```
-※STRIPE_KEYおよびSTRIPE_SECRETにはStripeのダッシュボードより取得した公開キーとシークレットキーを入力してください。
-https://dashboard.stripe.com/dashboard
 
 5. アプリケーションキーの作成
 ``` bash
@@ -79,6 +67,79 @@ php artisan db:seed
 ``` bash
 php artisan storage:link
 ```
+
+**Stripeのセットアップ**
+1. Stripeのダッシュボードより、テスト用の公開キーとシークレットキーを取得
+- https://dashboard.stripe.com/dashboard
+2. .envに以下の環境変数を追加
+``` text
+STRIPE_KEY=your_stripe_key
+STRIPE_SECRET=your_stripe_secret_key
+```
+
+**Stripe Webhookのセットアップ**
+1. Stripe CLIのインストール
+``` bash
+brew install stripe/stripe-cli/stripe
+```
+
+2. 下記を実行し、指示に従ってアクセス許可を行う
+``` bash
+stripe login
+```
+
+3. Webhookのエンドポイントを設定
+``` bash
+stripe listen --forward-to http://localhost/webhook/stripe
+```
+
+4. シークレットキーが発行される
+``` text
+> Ready! You are using Stripe API Version [2024-10-28.acacia]. Your webhook signing secret is whsec_your_webhook_secret
+```
+
+5. .envファイルに環境変数を追加
+``` text
+STRIPE_WEBHOOK_SECRET=your_webhook_secret
+```
+
+**テスト環境のセットアップ**
+1. MySQLにrootユーザーとしてログインし、テスト用のデータベースを作成する
+``` bash
+CREATE DATABASE frema_test;
+```
+2. .envファイルをコピーし、.env.testingを作成。必要な環境変数を追加
+``` text
+APP_ENV=test
+APP_KEY=
+```
+``` text
+DB_DATABASE=frema_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+3. アプリケーションキーを追加
+``` bash
+php artisan key:generate --env=testing
+```
+4. マイグレーションの実行
+``` bash
+php artisan migrate --env=testing
+```
+
+## Stripeを使用した決済のテスト方法
+###　カード決済
+- テスト用のカード番号を使用します (例: 4242 4242 4242 4242)。
+- 有効な将来の日付を使用します (例: 12/34 など)。
+- 任意の3桁のセキュリティーコードを使用します。
+- 購入が完了するとサンクスページへ遷移します。
+
+### 銀行振込
+- 支払い方法で銀行振込を選択後、支払い手順ページへ遷移します。
+
+### コンビニ支払
+- 支払い方法でコンビニ支払を選択後、支払い手順ページへ遷移します。
+- テストの場合、決済は3分後に自動的に処理されます。
 
 ## 管理ユーザのログイン方法
 シーディングを行なった時点で自動的に管理者ユーザが作成されます。
